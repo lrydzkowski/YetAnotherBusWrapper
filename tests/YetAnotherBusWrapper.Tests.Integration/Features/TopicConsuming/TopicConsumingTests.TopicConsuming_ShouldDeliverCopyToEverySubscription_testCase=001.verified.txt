@@ -1,0 +1,64 @@
+﻿{
+  TestCaseId: 1,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 2,
+      Status: New
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    }
+  ],
+  BillingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 2,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_2,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  ShippingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 2,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_3,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  RemainingBillingMessages: [],
+  RemainingShippingMessages: [],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

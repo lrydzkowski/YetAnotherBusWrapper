@@ -1,0 +1,50 @@
+﻿{
+  TestCaseId: 1,
+  SentMessages: [
+    {
+      Number: 1,
+      ContentLength: 8
+    },
+    {
+      Number: 2,
+      ContentLength: 8
+    },
+    {
+      Number: 3,
+      ContentLength: 8
+    }
+  ],
+  SendResult: {
+    Status: Sent,
+    MessageIds: [
+      Guid_1,
+      Guid_2,
+      Guid_3
+    ]
+  },
+  QueuedMessages: [
+    {
+      MessageId: Guid_1,
+      Number: 1,
+      BodyLength: 33
+    },
+    {
+      MessageId: Guid_2,
+      Number: 2,
+      BodyLength: 33
+    },
+    {
+      MessageId: Guid_3,
+      Number: 3,
+      BodyLength: 33
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 3 messages to 'reports'
+    }
+  ],
+  ThrownException: null
+}

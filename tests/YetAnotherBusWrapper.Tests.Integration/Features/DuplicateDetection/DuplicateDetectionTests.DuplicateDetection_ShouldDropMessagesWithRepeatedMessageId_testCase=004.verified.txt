@@ -1,0 +1,76 @@
+﻿{
+  TestCaseId: 4,
+  SendCalls: [
+    [
+      {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      }
+    ],
+    [
+      {
+        OrderId: order-001,
+        Quantity: 2,
+        Status: Paid
+      }
+    ]
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        order001
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        order001
+      ]
+    }
+  ],
+  Queue: {
+    Name: duplicate-detection-t004-orders,
+    MaxDeliveryCount: 10,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:10:00,
+    LockDuration: 00:01:00
+  },
+  QueuedMessages: [
+    {
+      MessageId: order001,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"order-001","quantity":1,"status":"New"},
+      ApplicationProperties: {}
+    },
+    {
+      MessageId: order001,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"order-001","quantity":2,"status":"Paid"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'orders' (entity name 'duplicate-detection-t004-orders')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

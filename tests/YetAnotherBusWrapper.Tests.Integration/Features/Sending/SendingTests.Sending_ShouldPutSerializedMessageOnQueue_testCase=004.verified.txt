@@ -1,0 +1,35 @@
+﻿{
+  TestCaseId: 4,
+  SentMessage: {
+    OrderId: Order_ABC-004/eu,
+    Quantity: 2,
+    Status: Paid
+  },
+  SendResult: {
+    Status: Sent,
+    MessageIds: [
+      orderabc004eu
+    ]
+  },
+  QueuedMessages: [
+    {
+      MessageId: orderabc004eu,
+      CorrelationId: null,
+      SessionId: Order_ABC-004/eu,
+      ContentType: application/json,
+      Body: {"orderId":"Order_ABC-004/eu","quantity":2,"status":"Paid"},
+      ApplicationProperties: {
+        quantity: 2,
+        status: Paid
+      }
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

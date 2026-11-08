@@ -1,0 +1,36 @@
+﻿{
+  TestCaseId: 3,
+  SentMessages: [
+    {
+      Number: 1,
+      ContentLength: 8
+    },
+    {
+      Number: 2,
+      ContentLength: 307200
+    },
+    {
+      Number: 3,
+      ContentLength: 8
+    }
+  ],
+  SendResult: null,
+  QueuedMessages: [
+    {
+      MessageId: Guid_1,
+      Number: 1,
+      BodyLength: 33
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    }
+  ],
+  ThrownException: {
+    Message: Message 'Guid_2' at index 1 sent to 'reports' doesn't fit into an empty batch of 262144 bytes. Messages before it may already be sent.,
+    TypeName: InvalidOperationException
+  }
+}

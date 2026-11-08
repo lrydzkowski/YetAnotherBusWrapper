@@ -1,0 +1,10 @@
+﻿{
+  TestCaseId: 1,
+  Started: true,
+  Stopped: true,
+  CreateOptions: null,
+  QueueAfterStart: null,
+  QueueAfterStop: null,
+  Logs: [],
+  ThrownException: null
+}

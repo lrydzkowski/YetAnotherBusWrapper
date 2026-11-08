@@ -1,0 +1,91 @@
+﻿{
+  TestCaseId: 2,
+  Started: true,
+  Stopped: true,
+  TopicCreateOptions: {
+    Name: topic-provisioning-t002-orders,
+    RequiresDuplicateDetection: true,
+    DuplicateDetectionHistoryTimeWindow: 00:05:00,
+    AutoDeleteOnIdle: 10675199.02:48:05.4775807
+  },
+  SubscriptionCreateOptions: [
+    {
+      TopicName: topic-provisioning-t002-orders,
+      SubscriptionName: billing,
+      MaxDeliveryCount: 3,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    },
+    {
+      TopicName: topic-provisioning-t002-orders,
+      SubscriptionName: shipping,
+      MaxDeliveryCount: 7,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    }
+  ],
+  TopicsAfterStart: [
+    {
+      Topic: {
+        Name: topic-provisioning-t002-orders,
+        RequiresDuplicateDetection: true,
+        DuplicateDetectionHistoryTimeWindow: 00:05:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t002-orders,
+          SubscriptionName: billing,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t002-orders,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 7,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  TopicsAfterStop: [
+    {
+      Topic: {
+        Name: topic-provisioning-t002-orders,
+        RequiresDuplicateDetection: true,
+        DuplicateDetectionHistoryTimeWindow: 00:05:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t002-orders,
+          SubscriptionName: billing,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t002-orders,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 7,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'topic-provisioning-t002-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/billing' (entity name 'topic-provisioning-t002-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/shipping' (entity name 'topic-provisioning-t002-orders/shipping')
+    }
+  ],
+  ThrownException: null
+}

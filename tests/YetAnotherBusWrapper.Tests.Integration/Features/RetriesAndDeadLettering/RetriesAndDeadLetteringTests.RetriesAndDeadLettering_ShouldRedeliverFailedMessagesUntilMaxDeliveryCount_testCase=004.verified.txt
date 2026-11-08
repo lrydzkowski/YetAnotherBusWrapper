@@ -1,0 +1,79 @@
+﻿{
+  TestCaseId: 4,
+  MaxDeliveryCount: 2,
+  FailurePlan: {
+    FailingDeliveryCount: 0
+  },
+  SentMessages: [],
+  SentRawMessages: [
+    {
+      MessageId: raw-001,
+      Body: null
+    }
+  ],
+  Deliveries: [],
+  RemainingMessages: [],
+  DeadLetteredMessages: [
+    {
+      MessageId: raw-001,
+      CorrelationId: null,
+      Body: null,
+      DeliveryCount: 2,
+      DeadLetterReason: MaxDeliveryCountExceeded
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'orders' (entity name 'retries-t004-orders'),
+      ExceptionType: null,
+      Scopes: []
+    },
+    {
+      Level: Error,
+      Logger: ReceivedMessageDispatcher,
+      Message: Failed to deserialize message 'raw-001' from 'orders' as 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced',
+      ExceptionType: InvalidOperationException,
+      Scopes: [
+        {
+          CorrelationId: Guid_1,
+          DeliveryCount: 1,
+          LogicalEntityName: orders,
+          MessageId: raw-001,
+          {OriginalFormat}: CorrelationId: {CorrelationId}, MessageId: {MessageId}, LogicalEntityName: {LogicalEntityName}, DeliveryCount: {DeliveryCount}
+        }
+      ]
+    },
+    {
+      Level: Error,
+      Logger: ConsumerProcessor,
+      Message: Service Bus processor error for queue 'orders' (entity name 'retries-t004-orders', source ProcessMessageCallback),
+      ExceptionType: InvalidOperationException,
+      Scopes: []
+    },
+    {
+      Level: Error,
+      Logger: ReceivedMessageDispatcher,
+      Message: Failed to deserialize message 'raw-001' from 'orders' as 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced',
+      ExceptionType: InvalidOperationException,
+      Scopes: [
+        {
+          CorrelationId: Guid_2,
+          DeliveryCount: 2,
+          LogicalEntityName: orders,
+          MessageId: raw-001,
+          {OriginalFormat}: CorrelationId: {CorrelationId}, MessageId: {MessageId}, LogicalEntityName: {LogicalEntityName}, DeliveryCount: {DeliveryCount}
+        }
+      ]
+    },
+    {
+      Level: Error,
+      Logger: ConsumerProcessor,
+      Message: Service Bus processor error for queue 'orders' (entity name 'retries-t004-orders', source ProcessMessageCallback),
+      ExceptionType: InvalidOperationException,
+      Scopes: []
+    }
+  ],
+  ThrownException: null
+}

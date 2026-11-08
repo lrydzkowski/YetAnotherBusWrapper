@@ -1,0 +1,29 @@
+﻿{
+  TestCaseId: 5,
+  QueueSend: {
+    Result: {
+      Status: Failed,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  TopicSend: null,
+  QueuedMessageIds: [
+    Guid_1
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    },
+    {
+      Level: Error,
+      Logger: MessageSender,
+      Message: Failed to send messages to queue 'reports'; 1 of 3 messages were sent
+    }
+  ],
+  ThrownException: null
+}

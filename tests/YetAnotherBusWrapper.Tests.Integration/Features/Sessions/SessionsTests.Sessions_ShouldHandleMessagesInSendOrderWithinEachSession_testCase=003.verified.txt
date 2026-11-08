@@ -1,0 +1,211 @@
+﻿{
+  TestCaseId: 3,
+  EntityKind: Subscription,
+  MaxConcurrentSessions: 2,
+  SentMessages: [
+    {
+      OrderId: customer-a-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: customer-b-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: customer-a-002,
+      Quantity: 2,
+      Status: Paid
+    },
+    {
+      OrderId: customer-b-002,
+      Quantity: 2,
+      Status: Paid
+    },
+    {
+      OrderId: customer-a-003,
+      Quantity: 3,
+      Status: New
+    },
+    {
+      OrderId: customer-b-003,
+      Quantity: 3,
+      Status: New
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_3
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_4
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_5
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_6
+      ]
+    }
+  ],
+  SessionDeliveries: [
+    {
+      SessionId: customer-a,
+      Deliveries: [
+        {
+          Message: {
+            OrderId: customer-a-001,
+            Quantity: 1,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_1,
+            CorrelationId: Guid_7,
+            DeliveryCount: 1,
+            SessionId: customer-a,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-a-002,
+            Quantity: 2,
+            Status: Paid
+          },
+          Context: {
+            MessageId: Guid_3,
+            CorrelationId: Guid_8,
+            DeliveryCount: 1,
+            SessionId: customer-a,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-a-003,
+            Quantity: 3,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_5,
+            CorrelationId: Guid_9,
+            DeliveryCount: 1,
+            SessionId: customer-a,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        }
+      ]
+    },
+    {
+      SessionId: customer-b,
+      Deliveries: [
+        {
+          Message: {
+            OrderId: customer-b-001,
+            Quantity: 1,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_2,
+            CorrelationId: Guid_10,
+            DeliveryCount: 1,
+            SessionId: customer-b,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-b-002,
+            Quantity: 2,
+            Status: Paid
+          },
+          Context: {
+            MessageId: Guid_4,
+            CorrelationId: Guid_11,
+            DeliveryCount: 1,
+            SessionId: customer-b,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-b-003,
+            Quantity: 3,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_6,
+            CorrelationId: Guid_12,
+            DeliveryCount: 1,
+            SessionId: customer-b,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        }
+      ]
+    }
+  ],
+  MaxConcurrentDeliveries: 2,
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

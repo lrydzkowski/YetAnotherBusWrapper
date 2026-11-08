@@ -1,0 +1,22 @@
+using YetAnotherBusWrapper.Options;
+
+namespace YetAnotherBusWrapper.Tests.Integration.Features.TopicProvisioning.Data.TestCases;
+
+internal class T07ExistingEntitiesLeftUnchanged : ITopicProvisioningTestCase
+{
+    public int TestCaseId => 7;
+
+    public bool EntitiesExistBeforeStart => true;
+
+    public void ConfigureTopic(TopicOptions options)
+    {
+        options.CreateOnStartup = true;
+        options.DuplicateDetectionWindow = TimeSpan.FromMinutes(5);
+    }
+
+    public void ConfigureSubscription(string subscriptionLogicalName, SubscriptionOptions options)
+    {
+        options.CreateOnStartup = true;
+        options.MaxDeliveryCount = 5;
+    }
+}

@@ -1,0 +1,109 @@
+﻿{
+  TestCaseId: 1,
+  RetryOptions: {
+    Queue: {
+      MaxRetries: 2,
+      TryTimeout: 00:00:10,
+      MaxDelay: 00:00:02
+    },
+    Topic: {
+      MaxRetries: 2,
+      TryTimeout: 00:00:10,
+      MaxDelay: 00:00:02
+    }
+  },
+  Started: true,
+  QueueSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  TopicSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    ThrownException: null
+  },
+  QueueDeliveryCount: 1,
+  SubscriptionDeliveryCount: 10,
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'reports' (entity name 'client-sharing-t001-reports')
+    },
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'client-sharing-t001-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-01' (entity name 'client-sharing-t001-orders/subscription-01')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-02' (entity name 'client-sharing-t001-orders/subscription-02')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-03' (entity name 'client-sharing-t001-orders/subscription-03')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-04' (entity name 'client-sharing-t001-orders/subscription-04')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-05' (entity name 'client-sharing-t001-orders/subscription-05')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-06' (entity name 'client-sharing-t001-orders/subscription-06')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-07' (entity name 'client-sharing-t001-orders/subscription-07')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-08' (entity name 'client-sharing-t001-orders/subscription-08')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-09' (entity name 'client-sharing-t001-orders/subscription-09')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-10' (entity name 'client-sharing-t001-orders/subscription-10')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

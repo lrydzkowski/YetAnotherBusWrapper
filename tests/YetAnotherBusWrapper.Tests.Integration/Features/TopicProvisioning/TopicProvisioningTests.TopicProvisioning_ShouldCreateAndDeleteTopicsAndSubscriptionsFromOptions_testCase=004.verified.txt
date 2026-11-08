@@ -1,0 +1,91 @@
+﻿{
+  TestCaseId: 4,
+  Started: true,
+  Stopped: true,
+  TopicCreateOptions: {
+    Name: topic-provisioning-t004-orders-instance-01,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:01:00,
+    AutoDeleteOnIdle: 10675199.02:48:05.4775807
+  },
+  SubscriptionCreateOptions: [
+    {
+      TopicName: topic-provisioning-t004-orders-instance-01,
+      SubscriptionName: billing-instance-01,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    },
+    {
+      TopicName: topic-provisioning-t004-orders-instance-01,
+      SubscriptionName: shipping,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    }
+  ],
+  TopicsAfterStart: [
+    {
+      Topic: {
+        Name: topic-provisioning-t004-orders-instance-01,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t004-orders-instance-01,
+          SubscriptionName: billing-instance-01,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t004-orders-instance-01,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  TopicsAfterStop: [
+    {
+      Topic: {
+        Name: topic-provisioning-t004-orders-instance-01,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t004-orders-instance-01,
+          SubscriptionName: billing-instance-01,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t004-orders-instance-01,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'topic-provisioning-t004-orders-instance-01')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/billing' (entity name 'topic-provisioning-t004-orders-instance-01/billing-instance-01')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/shipping' (entity name 'topic-provisioning-t004-orders-instance-01/shipping')
+    }
+  ],
+  ThrownException: null
+}

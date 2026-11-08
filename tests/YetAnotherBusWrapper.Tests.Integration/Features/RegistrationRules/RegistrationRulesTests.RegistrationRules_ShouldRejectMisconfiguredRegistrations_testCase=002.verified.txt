@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 2,
+  Registered: false,
+  ThrownException: {
+    Message: Message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced' can't be registered for topic 'order-events' because it is already registered for queue 'orders'.,
+    TypeName: InvalidOperationException
+  }
+}

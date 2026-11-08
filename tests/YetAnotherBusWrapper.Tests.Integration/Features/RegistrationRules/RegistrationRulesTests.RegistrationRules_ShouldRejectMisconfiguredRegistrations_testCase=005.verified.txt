@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 5,
+  Registered: false,
+  ThrownException: {
+    Message: Message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced' has no registered queue. Register the queue before its consumer.,
+    TypeName: InvalidOperationException
+  }
+}

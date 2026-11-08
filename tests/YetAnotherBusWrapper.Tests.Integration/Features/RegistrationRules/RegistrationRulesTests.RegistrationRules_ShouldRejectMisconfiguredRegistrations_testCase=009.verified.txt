@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 9,
+  Registered: false,
+  ThrownException: {
+    Message: Subscription 'billing' is already registered for topic 'order-events'.,
+    TypeName: InvalidOperationException
+  }
+}

@@ -1,0 +1,84 @@
+﻿{
+  TestCaseId: 5,
+  Started: true,
+  Stopped: true,
+  TopicCreateOptions: {
+    Name: topic-provisioning-t005-orders,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:01:00,
+    AutoDeleteOnIdle: 10675199.02:48:05.4775807
+  },
+  SubscriptionCreateOptions: [
+    {
+      TopicName: topic-provisioning-t005-orders,
+      SubscriptionName: billing,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    },
+    {
+      TopicName: topic-provisioning-t005-orders,
+      SubscriptionName: shipping,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00,
+      AutoDeleteOnIdle: 10675199.02:48:05.4775807
+    }
+  ],
+  TopicsAfterStart: [
+    {
+      Topic: {
+        Name: topic-provisioning-t005-orders,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t005-orders,
+          SubscriptionName: billing,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t005-orders,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 10,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  TopicsAfterStop: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'topic-provisioning-t005-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/billing' (entity name 'topic-provisioning-t005-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/shipping' (entity name 'topic-provisioning-t005-orders/shipping')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Deleted subscription 'orders/billing' (entity name 'topic-provisioning-t005-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Deleted subscription 'orders/shipping' (entity name 'topic-provisioning-t005-orders/shipping')
+    },
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Deleted topic 'orders' (entity name 'topic-provisioning-t005-orders')
+    }
+  ],
+  ThrownException: null
+}

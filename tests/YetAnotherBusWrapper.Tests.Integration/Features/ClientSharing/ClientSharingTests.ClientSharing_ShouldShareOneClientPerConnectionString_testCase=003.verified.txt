@@ -1,0 +1,25 @@
+﻿{
+  TestCaseId: 3,
+  RetryOptions: {
+    Queue: {
+      MaxRetries: 2,
+      TryTimeout: 00:00:10,
+      MaxDelay: 00:00:02
+    },
+    Topic: {
+      MaxRetries: 5,
+      TryTimeout: 00:00:10,
+      MaxDelay: 00:00:02
+    }
+  },
+  Started: false,
+  QueueSend: null,
+  TopicSend: null,
+  QueueDeliveryCount: 0,
+  SubscriptionDeliveryCount: 0,
+  Logs: [],
+  ThrownException: {
+    Message: Client retry options differ between queue 'reports' and topic 'orders', which use the same connection string. Registrations that share a connection string share one client, so their client retry options must match.,
+    TypeName: InvalidOperationException
+  }
+}

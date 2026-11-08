@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 1,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Queue 'orders' requires ConnectionString.,
+    TypeName: OptionsValidationException
+  }
+}

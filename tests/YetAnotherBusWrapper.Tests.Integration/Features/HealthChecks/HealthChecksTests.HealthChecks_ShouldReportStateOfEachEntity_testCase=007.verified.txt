@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 7,
+  OverallStatus: Healthy,
+  Entries: [
+    {
+      Name: yetanotherbuswrapper-queue-reports,
+      Status: Healthy,
+      Description: The queue 'reports' (entity name 'health-checks-t007-reports') exists.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/billing,
+      Status: Healthy,
+      Description: The subscription 'orders/billing' (entity name 'health-checks-t007-orders/billing') exists.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/shipping,
+      Status: Healthy,
+      Description: The subscription 'orders/shipping' (entity name 'health-checks-t007-orders/shipping') exists.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-topic-orders,
+      Status: Healthy,
+      Description: The topic 'orders' (entity name 'health-checks-t007-orders') exists.,
+      ExceptionType: null
+    }
+  ],
+  Logs: [],
+  ThrownException: null
+}

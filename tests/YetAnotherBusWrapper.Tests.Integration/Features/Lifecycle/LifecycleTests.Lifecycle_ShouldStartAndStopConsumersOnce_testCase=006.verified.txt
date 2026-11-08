@@ -1,0 +1,33 @@
+﻿{
+  TestCaseId: 6,
+  SendOutcomes: [
+    {
+      Result: {
+        Status: Sent,
+        MessageIds: [
+          Guid_1
+        ]
+      },
+      ThrownException: null
+    }
+  ],
+  Deliveries: [],
+  RemainingMessages: [
+    {
+      MessageId: Guid_1,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"order-001","quantity":1,"status":"New"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

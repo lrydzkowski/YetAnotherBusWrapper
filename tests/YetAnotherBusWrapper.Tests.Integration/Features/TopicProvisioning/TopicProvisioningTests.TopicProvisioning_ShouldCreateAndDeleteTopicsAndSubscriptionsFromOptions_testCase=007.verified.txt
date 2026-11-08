@@ -1,0 +1,71 @@
+﻿{
+  TestCaseId: 7,
+  Started: true,
+  Stopped: true,
+  TopicCreateOptions: null,
+  SubscriptionCreateOptions: [],
+  TopicsAfterStart: [
+    {
+      Topic: {
+        Name: topic-provisioning-t007-orders,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t007-orders,
+          SubscriptionName: billing,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t007-orders,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  TopicsAfterStop: [
+    {
+      Topic: {
+        Name: topic-provisioning-t007-orders,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: [
+        {
+          TopicName: topic-provisioning-t007-orders,
+          SubscriptionName: billing,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        },
+        {
+          TopicName: topic-provisioning-t007-orders,
+          SubscriptionName: shipping,
+          MaxDeliveryCount: 3,
+          LockDuration: 00:01:00
+        }
+      ]
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Topic 'orders' already exists (entity name 'topic-provisioning-t007-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Subscription 'orders/billing' already exists (entity name 'topic-provisioning-t007-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Subscription 'orders/shipping' already exists (entity name 'topic-provisioning-t007-orders/shipping')
+    }
+  ],
+  ThrownException: null
+}

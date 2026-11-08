@@ -1,0 +1,16 @@
+﻿{
+  TestCaseId: 8,
+  Started: true,
+  Stopped: true,
+  CreateOptions: null,
+  QueueAfterStart: null,
+  QueueAfterStop: null,
+  Logs: [
+    {
+      Level: Error,
+      Logger: QueueProvisioner,
+      Message: Failed to create queue 'orders' (entity name 'provisioning-t008-orders')
+    }
+  ],
+  ThrownException: null
+}

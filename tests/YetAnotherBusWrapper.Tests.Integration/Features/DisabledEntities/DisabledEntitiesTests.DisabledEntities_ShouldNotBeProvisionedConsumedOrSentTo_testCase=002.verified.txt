@@ -1,0 +1,69 @@
+﻿{
+  TestCaseId: 2,
+  Started: true,
+  EntitiesAfterStart: {
+    Queues: [
+      disabled-entities-t002-reports
+    ],
+    Topics: [],
+    Subscriptions: []
+  },
+  QueueSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  TopicSend: {
+    Result: null,
+    ThrownException: {
+      Message: Can't send to topic 'orders' because it is disabled.,
+      TypeName: InvalidOperationException
+    }
+  },
+  QueueDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        Number: 1,
+        Content: report-1
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_2,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  BillingDeliveries: [],
+  ShippingDeliveries: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'reports' (entity name 'disabled-entities-t002-reports')
+    },
+    {
+      Level: Information,
+      Logger: ConsumerProcessor,
+      Message: Consumer of subscription 'orders/billing' was not started because the entity is disabled
+    },
+    {
+      Level: Information,
+      Logger: ConsumerProcessor,
+      Message: Consumer of subscription 'orders/shipping' was not started because the entity is disabled
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    }
+  ],
+  ThrownException: null
+}

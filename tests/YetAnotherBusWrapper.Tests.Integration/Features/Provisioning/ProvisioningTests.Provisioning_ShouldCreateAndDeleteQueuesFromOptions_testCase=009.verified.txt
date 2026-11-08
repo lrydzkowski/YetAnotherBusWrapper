@@ -1,0 +1,19 @@
+﻿{
+  TestCaseId: 9,
+  Started: false,
+  Stopped: false,
+  CreateOptions: null,
+  QueueAfterStart: null,
+  QueueAfterStop: null,
+  Logs: [
+    {
+      Level: Error,
+      Logger: QueueProvisioner,
+      Message: Failed to create queue 'orders' (entity name 'provisioning-t009-orders')
+    }
+  ],
+  ThrownException: {
+    Message: Create options rejected.,
+    TypeName: InvalidOperationException
+  }
+}

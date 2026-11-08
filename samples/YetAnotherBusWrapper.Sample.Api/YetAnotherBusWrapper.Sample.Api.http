@@ -1,0 +1,117 @@
+@baseUrl = http://localhost:5180
+
+### Place an order (queue, port in core code, correlation ID from the order ID)
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "total": 129.99
+}
+
+### Payment that succeeds on the second delivery (one simulated failure)
+POST {{baseUrl}}/payments
+Content-Type: application/json
+
+{
+  "amount": 50,
+  "failuresToSimulate": 1
+}
+
+### Payment that ends in the dead-letter queue (MaxDeliveryCount is 3)
+POST {{baseUrl}}/payments
+Content-Type: application/json
+
+{
+  "amount": 75,
+  "failuresToSimulate": 5
+}
+
+### Ordered statuses of one shipment (session ID is the shipment ID)
+POST {{baseUrl}}/shipments/shipment-1/statuses
+Content-Type: application/json
+
+{
+  "statuses": ["Packed", "Shipped", "OutForDelivery", "Delivered"]
+}
+
+### Several reports sent in batches
+POST {{baseUrl}}/reports
+Content-Type: application/json
+
+{
+  "name": "Daily sales",
+  "count": 500,
+  "delaySeconds": 0
+}
+
+### Reports delivered in 30 seconds (scheduled enqueue)
+POST {{baseUrl}}/reports
+Content-Type: application/json
+
+{
+  "name": "Delayed sales",
+  "count": 3,
+  "delaySeconds": 30
+}
+
+### Send to the disabled audit queue (returns 409)
+POST {{baseUrl}}/audit
+Content-Type: application/json
+
+{
+  "action": "OrderDeleted",
+  "userName": "alice"
+}
+
+### Change a price (two subscriptions receive it)
+POST {{baseUrl}}/prices
+Content-Type: application/json
+
+{
+  "productId": "product-1",
+  "price": 19.99
+}
+
+### Same price again within the duplicate detection window (dropped by Service Bus)
+POST {{baseUrl}}/prices
+Content-Type: application/json
+
+{
+  "productId": "product-1",
+  "price": 19.99
+}
+
+### Read the cached price
+GET {{baseUrl}}/prices/product-1
+
+### Invalidate the cached price on every running instance
+POST {{baseUrl}}/cache-invalidations
+Content-Type: application/json
+
+{
+  "productId": "product-1"
+}
+
+### Invalidation meant for another application (ignored by the consumer)
+POST {{baseUrl}}/cache-invalidations
+Content-Type: application/json
+
+{
+  "productId": "product-1",
+  "applicationName": "other-application"
+}
+
+### Best-effort notification (Sent, or Skipped when the topic is disabled)
+POST {{baseUrl}}/notifications
+Content-Type: application/json
+
+{
+  "customerId": "customer-1",
+  "text": "Your order has shipped."
+}
+
+### Messages handled by consumers
+GET {{baseUrl}}/received
+
+### Health of every queue, topic, and subscription
+GET {{baseUrl}}/health

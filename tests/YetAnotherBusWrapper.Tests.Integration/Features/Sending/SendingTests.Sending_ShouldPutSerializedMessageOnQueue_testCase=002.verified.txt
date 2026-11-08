@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 2,
+  SentMessage: {
+    OrderId: order-002,
+    Quantity: 5,
+    Status: New
+  },
+  SendResult: {
+    Status: Sent,
+    MessageIds: [
+      Guid_1
+    ]
+  },
+  QueuedMessages: [
+    {
+      MessageId: Guid_1,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"order_id":"order-002","quantity":5,"status":"New"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

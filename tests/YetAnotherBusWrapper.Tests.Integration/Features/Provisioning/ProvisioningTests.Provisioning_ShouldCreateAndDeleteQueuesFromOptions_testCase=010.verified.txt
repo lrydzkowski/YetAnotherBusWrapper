@@ -1,0 +1,21 @@
+﻿{
+  TestCaseId: 10,
+  Started: true,
+  Stopped: true,
+  CreateOptions: null,
+  QueueAfterStart: null,
+  QueueAfterStop: null,
+  Logs: [
+    {
+      Level: Error,
+      Logger: QueueProvisioner,
+      Message: Failed to create queue 'orders' (entity name '***')
+    },
+    {
+      Level: Error,
+      Logger: QueueProvisioner,
+      Message: Failed to delete queue 'orders' (entity name '***')
+    }
+  ],
+  ThrownException: null
+}

@@ -1,0 +1,35 @@
+﻿{
+  TestCaseId: 5,
+  Started: true,
+  Stopped: true,
+  CreateOptions: {
+    Name: provisioning-t005-orders,
+    MaxDeliveryCount: 10,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:01:00,
+    LockDuration: 00:00:45,
+    AutoDeleteOnIdle: 00:10:00
+  },
+  QueueAfterStart: {
+    Name: provisioning-t005-orders,
+    MaxDeliveryCount: 10,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:10:00,
+    LockDuration: 00:00:45
+  },
+  QueueAfterStop: {
+    Name: provisioning-t005-orders,
+    MaxDeliveryCount: 10,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:10:00,
+    LockDuration: 00:00:45
+  },
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'orders' (entity name 'provisioning-t005-orders')
+    }
+  ],
+  ThrownException: null
+}

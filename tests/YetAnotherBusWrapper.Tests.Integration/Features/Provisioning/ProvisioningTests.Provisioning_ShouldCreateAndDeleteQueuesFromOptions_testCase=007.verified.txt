@@ -1,0 +1,16 @@
+﻿{
+  TestCaseId: 7,
+  Started: true,
+  Stopped: true,
+  CreateOptions: null,
+  QueueAfterStart: null,
+  QueueAfterStop: null,
+  Logs: [
+    {
+      Level: Error,
+      Logger: QueueProvisioner,
+      Message: Failed to delete queue 'orders' (entity name 'provisioning-t007-orders')
+    }
+  ],
+  ThrownException: null
+}

@@ -1,0 +1,72 @@
+﻿{
+  TestCaseId: 3,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    }
+  ],
+  MessagesSentAfterStop: [
+    {
+      OrderId: order-002,
+      Quantity: 2,
+      Status: Paid
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    }
+  ],
+  Deliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_3,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_1,
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  RemainingMessages: [
+    {
+      MessageId: Guid_2,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"order-002","quantity":2,"status":"Paid"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

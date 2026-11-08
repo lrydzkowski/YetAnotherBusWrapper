@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 3,
+  OverallStatus: Unhealthy,
+  Entries: [
+    {
+      Name: yetanotherbuswrapper-queue-reports,
+      Status: Unhealthy,
+      Description: The queue 'reports' (entity name 'health-checks-t003-reports') doesn't exist.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/billing,
+      Status: Unhealthy,
+      Description: The subscription 'orders/billing' (entity name 'health-checks-t003-orders/billing') doesn't exist.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/shipping,
+      Status: Unhealthy,
+      Description: The subscription 'orders/shipping' (entity name 'health-checks-t003-orders/shipping') doesn't exist.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-topic-orders,
+      Status: Unhealthy,
+      Description: The topic 'orders' (entity name 'health-checks-t003-orders') doesn't exist.,
+      ExceptionType: null
+    }
+  ],
+  Logs: [],
+  ThrownException: null
+}

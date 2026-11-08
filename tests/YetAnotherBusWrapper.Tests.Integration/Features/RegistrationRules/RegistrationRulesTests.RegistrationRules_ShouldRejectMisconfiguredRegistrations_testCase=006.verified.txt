@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 6,
+  Registered: false,
+  ThrownException: {
+    Message: Message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced' has no registered topic. Register the topic before its consumer.,
+    TypeName: InvalidOperationException
+  }
+}

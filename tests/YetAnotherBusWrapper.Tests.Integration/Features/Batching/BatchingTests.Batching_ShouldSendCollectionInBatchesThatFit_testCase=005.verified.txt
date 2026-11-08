@@ -1,0 +1,11 @@
+﻿{
+  TestCaseId: 5,
+  SentMessages: [],
+  SendResult: {
+    Status: Sent,
+    MessageIds: []
+  },
+  QueuedMessages: [],
+  Logs: [],
+  ThrownException: null
+}

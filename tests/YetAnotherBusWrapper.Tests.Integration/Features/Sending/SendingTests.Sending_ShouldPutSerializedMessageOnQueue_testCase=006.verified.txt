@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 6,
+  SentMessage: {
+    OrderId: ORDER-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-,
+    Quantity: 1,
+    Status: New
+  },
+  SendResult: {
+    Status: Sent,
+    MessageIds: [
+      orderab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1
+    ]
+  },
+  QueuedMessages: [
+    {
+      MessageId: orderab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1ab1,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"ORDER-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-Ab1-","quantity":1,"status":"New"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

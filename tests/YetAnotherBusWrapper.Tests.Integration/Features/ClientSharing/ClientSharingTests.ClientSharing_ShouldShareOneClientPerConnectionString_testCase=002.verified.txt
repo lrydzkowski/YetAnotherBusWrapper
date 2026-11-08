@@ -1,0 +1,64 @@
+﻿{
+  TestCaseId: 2,
+  RetryOptions: {
+    Queue: {
+      MaxRetries: 4,
+      TryTimeout: 00:00:20,
+      MaxDelay: 00:00:05
+    },
+    Topic: {
+      MaxRetries: 4,
+      TryTimeout: 00:00:20,
+      MaxDelay: 00:00:05
+    }
+  },
+  Started: true,
+  QueueSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  TopicSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    ThrownException: null
+  },
+  QueueDeliveryCount: 1,
+  SubscriptionDeliveryCount: 1,
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'reports' (entity name 'client-sharing-t002-reports')
+    },
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'client-sharing-t002-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/subscription-01' (entity name 'client-sharing-t002-orders/subscription-01')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

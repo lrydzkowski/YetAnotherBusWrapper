@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 8,
+  Registered: false,
+  ThrownException: {
+    Message: Message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced' is registered for queue 'orders', not a topic. Register a queue consumer instead.,
+    TypeName: InvalidOperationException
+  }
+}

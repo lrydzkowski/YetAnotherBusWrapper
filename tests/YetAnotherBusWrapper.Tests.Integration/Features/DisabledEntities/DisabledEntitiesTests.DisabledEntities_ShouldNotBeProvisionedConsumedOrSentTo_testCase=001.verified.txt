@@ -1,0 +1,95 @@
+﻿{
+  TestCaseId: 1,
+  Started: true,
+  EntitiesAfterStart: {
+    Queues: [],
+    Topics: [
+      disabled-entities-t001-orders
+    ],
+    Subscriptions: [
+      disabled-entities-t001-orders/billing,
+      disabled-entities-t001-orders/shipping
+    ]
+  },
+  QueueSend: {
+    Result: null,
+    ThrownException: {
+      Message: Can't send to queue 'reports' because it is disabled.,
+      TypeName: InvalidOperationException
+    }
+  },
+  TopicSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  QueueDeliveries: [],
+  BillingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 2,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_2,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  ShippingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 2,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_3,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'disabled-entities-t001-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/billing' (entity name 'disabled-entities-t001-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/shipping' (entity name 'disabled-entities-t001-orders/shipping')
+    },
+    {
+      Level: Information,
+      Logger: ConsumerProcessor,
+      Message: Consumer of queue 'reports' was not started because the entity is disabled
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

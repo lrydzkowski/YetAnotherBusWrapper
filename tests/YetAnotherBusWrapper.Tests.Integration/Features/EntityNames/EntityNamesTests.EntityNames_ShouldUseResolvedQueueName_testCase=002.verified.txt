@@ -1,0 +1,35 @@
+﻿{
+  TestCaseId: 2,
+  ConfiguredQueueName: entity-names-t002-orders,
+  InstanceName: instance-01,
+  UseInstanceSuffix: true,
+  QueueNamesAfterStart: [
+    entity-names-t002-orders-instance-01
+  ],
+  DeliveredMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    }
+  ],
+  QueueNamesAfterStop: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'orders' (entity name 'entity-names-t002-orders-instance-01')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Deleted queue 'orders' (entity name 'entity-names-t002-orders-instance-01')
+    }
+  ],
+  ThrownException: null
+}

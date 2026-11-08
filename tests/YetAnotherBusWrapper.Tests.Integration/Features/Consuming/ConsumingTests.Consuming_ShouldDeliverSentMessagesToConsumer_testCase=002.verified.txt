@@ -1,0 +1,110 @@
+﻿{
+  TestCaseId: 2,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: order-002,
+      Quantity: 2,
+      Status: Paid
+    },
+    {
+      OrderId: order-003,
+      Quantity: 3,
+      Status: New
+    }
+  ],
+  MessagesSentAfterStop: [],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_3
+      ]
+    }
+  ],
+  Deliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_4,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_1,
+        ApplicationProperties: {}
+      }
+    },
+    {
+      ConsumerInstance: 2,
+      Message: {
+        OrderId: order-002,
+        Quantity: 2,
+        Status: Paid
+      },
+      Context: {
+        MessageId: Guid_2,
+        CorrelationId: Guid_5,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_2,
+        ApplicationProperties: {}
+      }
+    },
+    {
+      ConsumerInstance: 3,
+      Message: {
+        OrderId: order-003,
+        Quantity: 3,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_3,
+        CorrelationId: Guid_6,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_3,
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  RemainingMessages: [],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

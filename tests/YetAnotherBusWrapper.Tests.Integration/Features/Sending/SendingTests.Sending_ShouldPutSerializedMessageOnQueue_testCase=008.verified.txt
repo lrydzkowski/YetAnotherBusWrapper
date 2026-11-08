@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 8,
+  SentMessage: {
+    OrderId: Zamówienie-ŁÓDŹ/008,
+    Quantity: 1,
+    Status: New
+  },
+  SendResult: {
+    Status: Sent,
+    MessageIds: [
+      zamówieniełódź008
+    ]
+  },
+  QueuedMessages: [
+    {
+      MessageId: zamówieniełódź008,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"Zam\u00F3wienie-\u0141\u00D3D\u0179/008","quantity":1,"status":"New"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

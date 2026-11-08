@@ -1,0 +1,28 @@
+﻿{
+  TestCaseId: 3,
+  Started: true,
+  Stopped: true,
+  CreateOptions: null,
+  QueueAfterStart: {
+    Name: provisioning-t003-orders,
+    MaxDeliveryCount: 3,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:10:00,
+    LockDuration: 00:01:00
+  },
+  QueueAfterStop: {
+    Name: provisioning-t003-orders,
+    MaxDeliveryCount: 3,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:10:00,
+    LockDuration: 00:01:00
+  },
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Queue 'orders' already exists (entity name 'provisioning-t003-orders')
+    }
+  ],
+  ThrownException: null
+}

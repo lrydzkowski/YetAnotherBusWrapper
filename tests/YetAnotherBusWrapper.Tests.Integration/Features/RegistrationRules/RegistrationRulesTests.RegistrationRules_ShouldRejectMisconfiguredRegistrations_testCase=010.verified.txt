@@ -1,0 +1,5 @@
+﻿{
+  TestCaseId: 10,
+  Registered: true,
+  ThrownException: null
+}

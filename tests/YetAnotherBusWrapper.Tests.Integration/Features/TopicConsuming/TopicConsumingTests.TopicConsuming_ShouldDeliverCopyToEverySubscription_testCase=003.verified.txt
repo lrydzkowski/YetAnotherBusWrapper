@@ -1,0 +1,68 @@
+﻿{
+  TestCaseId: 3,
+  SentMessages: [
+    {
+      OrderId: Order-003,
+      Quantity: 4,
+      Status: Paid
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        order003
+      ]
+    }
+  ],
+  BillingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: Order-003,
+        Quantity: 4,
+        Status: Paid
+      },
+      Context: {
+        MessageId: order003,
+        CorrelationId: Guid_1,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {
+          status: Paid
+        }
+      }
+    }
+  ],
+  ShippingDeliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: Order-003,
+        Quantity: 4,
+        Status: Paid
+      },
+      Context: {
+        MessageId: order003,
+        CorrelationId: Guid_2,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {
+          status: Paid
+        }
+      }
+    }
+  ],
+  RemainingBillingMessages: [],
+  RemainingShippingMessages: [],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

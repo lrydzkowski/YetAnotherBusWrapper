@@ -1,0 +1,6 @@
+﻿{
+  TestCaseId: 4,
+  Started: true,
+  Logs: [],
+  ThrownException: null
+}

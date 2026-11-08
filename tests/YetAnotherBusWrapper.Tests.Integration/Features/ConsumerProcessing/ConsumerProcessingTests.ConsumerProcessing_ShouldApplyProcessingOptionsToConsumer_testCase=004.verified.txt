@@ -1,0 +1,42 @@
+﻿{
+  TestCaseId: 4,
+  EntityKind: Queue,
+  LockDuration: 00:00:05,
+  MaxConcurrentCalls: null,
+  MaxAutoLockRenewalDuration: null,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    }
+  ],
+  HandledDeliveries: [
+    {
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      DeliveryCount: 1
+    }
+  ],
+  MaxConcurrentDeliveries: 1,
+  RemainingMessages: [],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

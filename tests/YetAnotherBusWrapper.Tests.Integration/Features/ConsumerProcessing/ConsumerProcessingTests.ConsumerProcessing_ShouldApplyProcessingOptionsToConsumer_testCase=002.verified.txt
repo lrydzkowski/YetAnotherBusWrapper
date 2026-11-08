@@ -1,0 +1,90 @@
+﻿{
+  TestCaseId: 2,
+  EntityKind: Queue,
+  LockDuration: null,
+  MaxConcurrentCalls: 3,
+  MaxAutoLockRenewalDuration: null,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: order-002,
+      Quantity: 2,
+      Status: Paid
+    },
+    {
+      OrderId: order-003,
+      Quantity: 3,
+      Status: New
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_3
+      ]
+    }
+  ],
+  HandledDeliveries: [
+    {
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      DeliveryCount: 1
+    },
+    {
+      Message: {
+        OrderId: order-002,
+        Quantity: 2,
+        Status: Paid
+      },
+      DeliveryCount: 1
+    },
+    {
+      Message: {
+        OrderId: order-003,
+        Quantity: 3,
+        Status: New
+      },
+      DeliveryCount: 1
+    }
+  ],
+  MaxConcurrentDeliveries: 3,
+  RemainingMessages: [],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

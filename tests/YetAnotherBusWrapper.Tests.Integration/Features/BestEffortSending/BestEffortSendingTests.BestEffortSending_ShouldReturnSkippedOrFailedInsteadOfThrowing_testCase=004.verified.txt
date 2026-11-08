@@ -1,0 +1,20 @@
+﻿{
+  TestCaseId: 4,
+  QueueSend: {
+    Result: {
+      Status: Failed,
+      MessageIds: []
+    },
+    ThrownException: null
+  },
+  TopicSend: null,
+  QueuedMessageIds: [],
+  Logs: [
+    {
+      Level: Error,
+      Logger: MessageSender,
+      Message: Failed to send messages to queue 'reports'; 0 of 1 messages were sent
+    }
+  ],
+  ThrownException: null
+}

@@ -1,0 +1,149 @@
+﻿{
+  TestCaseId: 2,
+  EntityKind: Queue,
+  MaxConcurrentSessions: 1,
+  SentMessages: [
+    {
+      OrderId: customer-a-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: customer-b-001,
+      Quantity: 1,
+      Status: New
+    },
+    {
+      OrderId: customer-a-002,
+      Quantity: 2,
+      Status: Paid
+    },
+    {
+      OrderId: customer-b-002,
+      Quantity: 2,
+      Status: Paid
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_2
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_3
+      ]
+    },
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_4
+      ]
+    }
+  ],
+  SessionDeliveries: [
+    {
+      SessionId: customer-a,
+      Deliveries: [
+        {
+          Message: {
+            OrderId: customer-a-001,
+            Quantity: 1,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_1,
+            CorrelationId: Guid_5,
+            DeliveryCount: 1,
+            SessionId: customer-a,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-a-002,
+            Quantity: 2,
+            Status: Paid
+          },
+          Context: {
+            MessageId: Guid_3,
+            CorrelationId: Guid_6,
+            DeliveryCount: 1,
+            SessionId: customer-a,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        }
+      ]
+    },
+    {
+      SessionId: customer-b,
+      Deliveries: [
+        {
+          Message: {
+            OrderId: customer-b-001,
+            Quantity: 1,
+            Status: New
+          },
+          Context: {
+            MessageId: Guid_2,
+            CorrelationId: Guid_7,
+            DeliveryCount: 1,
+            SessionId: customer-b,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        },
+        {
+          Message: {
+            OrderId: customer-b-002,
+            Quantity: 2,
+            Status: Paid
+          },
+          Context: {
+            MessageId: Guid_4,
+            CorrelationId: Guid_8,
+            DeliveryCount: 1,
+            SessionId: customer-b,
+            EnqueuedTime: {Scrubbed},
+            ApplicationProperties: {}
+          }
+        }
+      ]
+    }
+  ],
+  MaxConcurrentDeliveries: 1,
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    }
+  ],
+  ThrownException: null
+}

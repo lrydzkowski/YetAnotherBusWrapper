@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 4,
+  OverallStatus: Unhealthy,
+  Entries: [
+    {
+      Name: yetanotherbuswrapper-queue-reports,
+      Status: Unhealthy,
+      Description: The messaging entity 'sb://sbemulatorns.servicebus.onebox.windows-int.net/health-checks-t004-reports/$management' could not be found. To know more visit https://aka.ms/sbResourceMgrExceptions.  TrackingId:{Scrubbed}, SystemTracker:gateway1, Timestamp:{Scrubbed} (MessagingEntityNotFound). For troubleshooting information, see https://aka.ms/azsdk/net/servicebus/exceptions/troubleshoot.,
+      ExceptionType: ServiceBusException
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/billing,
+      Status: Unhealthy,
+      Description: The messaging entity 'sb://sbemulatorns.servicebus.onebox.windows-int.net/health-checks-t004-orders/subscriptions/billing/$management' could not be found. To know more visit https://aka.ms/sbResourceMgrExceptions.  TrackingId:{Scrubbed}, SystemTracker:gateway1, Timestamp:{Scrubbed} (MessagingEntityNotFound). For troubleshooting information, see https://aka.ms/azsdk/net/servicebus/exceptions/troubleshoot.,
+      ExceptionType: ServiceBusException
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/shipping,
+      Status: Unhealthy,
+      Description: The messaging entity 'sb://sbemulatorns.servicebus.onebox.windows-int.net/health-checks-t004-orders/subscriptions/shipping/$management' could not be found. To know more visit https://aka.ms/sbResourceMgrExceptions.  TrackingId:{Scrubbed}, SystemTracker:gateway1, Timestamp:{Scrubbed} (MessagingEntityNotFound). For troubleshooting information, see https://aka.ms/azsdk/net/servicebus/exceptions/troubleshoot.,
+      ExceptionType: ServiceBusException
+    },
+    {
+      Name: yetanotherbuswrapper-topic-orders,
+      Status: Unhealthy,
+      Description: The topic 'orders' (entity name 'health-checks-t004-orders') doesn't exist.,
+      ExceptionType: null
+    }
+  ],
+  Logs: [],
+  ThrownException: null
+}

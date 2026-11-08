@@ -1,0 +1,69 @@
+﻿{
+  TestCaseId: 5,
+  EntityKind: Queue,
+  LockDuration: 00:00:05,
+  MaxConcurrentCalls: null,
+  MaxAutoLockRenewalDuration: 00:00:00,
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 1,
+      Status: New
+    }
+  ],
+  SendResults: [
+    {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    }
+  ],
+  HandledDeliveries: [
+    {
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      DeliveryCount: 1
+    },
+    {
+      Message: {
+        OrderId: order-001,
+        Quantity: 1,
+        Status: New
+      },
+      DeliveryCount: 2
+    }
+  ],
+  MaxConcurrentDeliveries: 1,
+  RemainingMessages: [
+    {
+      MessageId: Guid_1,
+      CorrelationId: null,
+      SessionId: null,
+      ContentType: application/json,
+      Body: {"orderId":"order-001","quantity":1,"status":"New"},
+      ApplicationProperties: {}
+    }
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Error,
+      Logger: ConsumerProcessor,
+      Message: Service Bus processor error for queue 'orders' (entity name 'consumer-processing-t005-orders', source Complete)
+    },
+    {
+      Level: Error,
+      Logger: ConsumerProcessor,
+      Message: Service Bus processor error for queue 'orders' (entity name 'consumer-processing-t005-orders', source Complete)
+    }
+  ],
+  ThrownException: null
+}

@@ -1,0 +1,20 @@
+﻿{
+  TestCaseId: 3,
+  QueueSend: null,
+  TopicSend: {
+    Result: {
+      Status: Skipped,
+      MessageIds: []
+    },
+    ThrownException: null
+  },
+  QueuedMessageIds: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: MessageSender,
+      Message: Skipped sending 1 messages to topic 'orders' because it is disabled
+    }
+  ],
+  ThrownException: null
+}

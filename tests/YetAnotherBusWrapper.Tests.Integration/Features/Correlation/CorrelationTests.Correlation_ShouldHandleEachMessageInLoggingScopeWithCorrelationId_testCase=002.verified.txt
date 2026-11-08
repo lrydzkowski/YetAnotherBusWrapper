@@ -1,0 +1,86 @@
+﻿{
+  TestCaseId: 2,
+  FailurePlan: {
+    FailingDeliveryCount: 0
+  },
+  SentMessages: [
+    {
+      OrderId: order-001,
+      Quantity: 3,
+      Status: Paid
+    },
+    {
+      OrderId: order-002,
+      Quantity: 1,
+      Status: New
+    }
+  ],
+  Deliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        OrderId: order-001,
+        Quantity: 3,
+        Status: Paid
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: correlation-order-001,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_1,
+        ApplicationProperties: {}
+      }
+    },
+    {
+      ConsumerInstance: 2,
+      Message: {
+        OrderId: order-002,
+        Quantity: 1,
+        Status: New
+      },
+      Context: {
+        MessageId: Guid_2,
+        CorrelationId: correlation-order-002,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: DateTimeOffset_2,
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  RemainingMessages: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: FailingConsumer,
+      Message: Consuming order 'order-001' on delivery 1,
+      ExceptionType: null,
+      Scopes: [
+        {
+          CorrelationId: correlation-order-001,
+          DeliveryCount: 1,
+          LogicalEntityName: orders,
+          MessageId: Guid_1,
+          {OriginalFormat}: CorrelationId: {CorrelationId}, MessageId: {MessageId}, LogicalEntityName: {LogicalEntityName}, DeliveryCount: {DeliveryCount}
+        }
+      ]
+    },
+    {
+      Level: Information,
+      Logger: FailingConsumer,
+      Message: Consuming order 'order-002' on delivery 1,
+      ExceptionType: null,
+      Scopes: [
+        {
+          CorrelationId: correlation-order-002,
+          DeliveryCount: 1,
+          LogicalEntityName: orders,
+          MessageId: Guid_2,
+          {OriginalFormat}: CorrelationId: {CorrelationId}, MessageId: {MessageId}, LogicalEntityName: {LogicalEntityName}, DeliveryCount: {DeliveryCount}
+        }
+      ]
+    }
+  ],
+  ThrownException: null
+}

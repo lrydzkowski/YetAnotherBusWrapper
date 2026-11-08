@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 5,
+  OverallStatus: Degraded,
+  Entries: [
+    {
+      Name: yetanotherbuswrapper-queue-reports,
+      Status: Degraded,
+      Description: The queue 'reports' is disabled.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/billing,
+      Status: Degraded,
+      Description: The subscription 'orders/billing' is disabled.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/shipping,
+      Status: Degraded,
+      Description: The subscription 'orders/shipping' is disabled.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-topic-orders,
+      Status: Degraded,
+      Description: The topic 'orders' is disabled.,
+      ExceptionType: null
+    }
+  ],
+  Logs: [],
+  ThrownException: null
+}

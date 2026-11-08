@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 2,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Queue 'orders' requires QueueName.,
+    TypeName: OptionsValidationException
+  }
+}

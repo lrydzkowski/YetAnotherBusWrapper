@@ -1,0 +1,26 @@
+﻿{
+  TestCaseId: 1,
+  QueueSend: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1,
+        Guid_2
+      ]
+    },
+    ThrownException: null
+  },
+  TopicSend: null,
+  QueuedMessageIds: [
+    Guid_1,
+    Guid_2
+  ],
+  Logs: [
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 2 messages to 'reports'
+    }
+  ],
+  ThrownException: null
+}

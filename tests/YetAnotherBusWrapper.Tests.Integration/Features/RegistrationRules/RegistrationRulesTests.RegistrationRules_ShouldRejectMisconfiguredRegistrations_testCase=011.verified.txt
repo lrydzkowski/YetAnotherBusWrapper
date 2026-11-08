@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 11,
+  Registered: false,
+  ThrownException: {
+    Message: Consumer 'YetAnotherBusWrapper.Tests.Integration.Common.Consumers.ShippingConsumer' can't be registered for queue 'orders' because consumer 'YetAnotherBusWrapper.Tests.Integration.Common.Consumers.BillingConsumer' is already registered for it.,
+    TypeName: InvalidOperationException
+  }
+}

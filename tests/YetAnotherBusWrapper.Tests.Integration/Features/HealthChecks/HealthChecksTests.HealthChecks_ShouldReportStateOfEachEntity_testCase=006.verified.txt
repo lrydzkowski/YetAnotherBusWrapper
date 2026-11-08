@@ -1,0 +1,32 @@
+﻿{
+  TestCaseId: 6,
+  OverallStatus: Degraded,
+  Entries: [
+    {
+      Name: yetanotherbuswrapper-queue-reports,
+      Status: Healthy,
+      Description: The queue 'reports' (entity name 'health-checks-t006-reports') exists.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/billing,
+      Status: Degraded,
+      Description: The subscription 'orders/billing' is disabled.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-subscription-orders/shipping,
+      Status: Healthy,
+      Description: The subscription 'orders/shipping' (entity name 'health-checks-t006-orders/shipping') exists.,
+      ExceptionType: null
+    },
+    {
+      Name: yetanotherbuswrapper-topic-orders,
+      Status: Healthy,
+      Description: The topic 'orders' (entity name 'health-checks-t006-orders') exists.,
+      ExceptionType: null
+    }
+  ],
+  Logs: [],
+  ThrownException: null
+}

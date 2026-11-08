@@ -1,0 +1,39 @@
+﻿{
+  TestCaseId: 8,
+  Started: false,
+  Stopped: false,
+  TopicCreateOptions: {
+    Name: topic-provisioning-t008-orders,
+    RequiresDuplicateDetection: false,
+    DuplicateDetectionHistoryTimeWindow: 00:01:00,
+    AutoDeleteOnIdle: 10675199.02:48:05.4775807
+  },
+  SubscriptionCreateOptions: [],
+  TopicsAfterStart: [],
+  TopicsAfterStop: [
+    {
+      Topic: {
+        Name: topic-provisioning-t008-orders,
+        RequiresDuplicateDetection: false,
+        DuplicateDetectionHistoryTimeWindow: 00:10:00
+      },
+      Subscriptions: []
+    }
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'topic-provisioning-t008-orders')
+    },
+    {
+      Level: Error,
+      Logger: SubscriptionProvisioner,
+      Message: Failed to create subscription 'orders/billing' (entity name 'topic-provisioning-t008-orders/billing')
+    }
+  ],
+  ThrownException: {
+    Message: Create options rejected.,
+    TypeName: InvalidOperationException
+  }
+}
