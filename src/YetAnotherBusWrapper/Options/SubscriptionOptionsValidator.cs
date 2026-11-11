@@ -6,15 +6,15 @@ namespace YetAnotherBusWrapper.Options;
 internal sealed class SubscriptionOptionsValidator : IValidateOptions<SubscriptionOptions>
 {
     private readonly YetAnotherBusWrapperRegistry _registry;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
+    private readonly IOptionsFactory<TopicOptions> _topicOptionsFactory;
 
     public SubscriptionOptionsValidator(
         YetAnotherBusWrapperRegistry registry,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor
+        IOptionsFactory<TopicOptions> topicOptionsFactory
     )
     {
         _registry = registry;
-        _topicOptionsMonitor = topicOptionsMonitor;
+        _topicOptionsFactory = topicOptionsFactory;
     }
 
     public ValidateOptionsResult Validate(string? name, SubscriptionOptions options)
@@ -38,6 +38,6 @@ internal sealed class SubscriptionOptionsValidator : IValidateOptions<Subscripti
     {
         SubscriptionRegistration? registration = name is null ? null : _registry.FindSubscription(name);
 
-        return registration is not null && !_topicOptionsMonitor.Get(registration.TopicLogicalEntityName).Enabled;
+        return registration is not null && !_topicOptionsFactory.Create(registration.TopicLogicalEntityName).Enabled;
     }
 }

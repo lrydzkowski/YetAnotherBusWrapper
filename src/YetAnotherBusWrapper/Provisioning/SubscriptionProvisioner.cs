@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Clients;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Options;
@@ -11,23 +10,20 @@ internal sealed class SubscriptionProvisioner
 {
     private readonly ServiceBusClientProvider _clientProvider;
     private readonly EntityNameResolver _entityNameResolver;
+    private readonly EntityOptionsStore _optionsStore;
     private readonly YetAnotherBusWrapperRegistry _registry;
     private readonly ProvisioningRunner _runner;
-    private readonly IOptionsMonitor<SubscriptionOptions> _subscriptionOptionsMonitor;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
 
     public SubscriptionProvisioner(
         YetAnotherBusWrapperRegistry registry,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor,
-        IOptionsMonitor<SubscriptionOptions> subscriptionOptionsMonitor,
+        EntityOptionsStore optionsStore,
         ServiceBusClientProvider clientProvider,
         EntityNameResolver entityNameResolver,
         ILogger<SubscriptionProvisioner> logger
     )
     {
         _registry = registry;
-        _topicOptionsMonitor = topicOptionsMonitor;
-        _subscriptionOptionsMonitor = subscriptionOptionsMonitor;
+        _optionsStore = optionsStore;
         _clientProvider = clientProvider;
         _entityNameResolver = entityNameResolver;
         _runner = new ProvisioningRunner(logger);
@@ -37,8 +33,8 @@ internal sealed class SubscriptionProvisioner
     {
         foreach (SubscriptionRegistration registration in _registry.Subscriptions)
         {
-            TopicOptions topicOptions = _topicOptionsMonitor.Get(registration.TopicLogicalEntityName);
-            SubscriptionOptions options = _subscriptionOptionsMonitor.Get(registration.LogicalEntityName);
+            TopicOptions topicOptions = _optionsStore.GetTopic(registration.TopicLogicalEntityName);
+            SubscriptionOptions options = _optionsStore.GetSubscription(registration.LogicalEntityName);
             if (!topicOptions.Enabled || !options.Enabled || !options.CreateOnStartup)
             {
                 continue;
@@ -52,8 +48,8 @@ internal sealed class SubscriptionProvisioner
     {
         foreach (SubscriptionRegistration registration in _registry.Subscriptions)
         {
-            TopicOptions topicOptions = _topicOptionsMonitor.Get(registration.TopicLogicalEntityName);
-            SubscriptionOptions options = _subscriptionOptionsMonitor.Get(registration.LogicalEntityName);
+            TopicOptions topicOptions = _optionsStore.GetTopic(registration.TopicLogicalEntityName);
+            SubscriptionOptions options = _optionsStore.GetSubscription(registration.LogicalEntityName);
             if (!topicOptions.Enabled || !options.Enabled || !options.DeleteOnShutdown)
             {
                 continue;
