@@ -180,6 +180,10 @@ entity values from another, as in the examples above. Options registered
 later override earlier ones, so a `Bind` after `Configure` lets an entity
 section override the shared connection string.
 
+The library reads each entity's options once, when the host starts, and
+keeps them until the app stops. Configuration reloads, such as an edited
+`appsettings.json`, are not applied. Restart the app to apply new options.
+
 To fill the options from environment variables, read them in your own code:
 
 ```csharp

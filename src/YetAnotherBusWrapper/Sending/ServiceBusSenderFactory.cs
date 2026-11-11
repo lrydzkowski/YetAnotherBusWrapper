@@ -1,5 +1,4 @@
 using Azure.Messaging.ServiceBus;
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Clients;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Options;
@@ -10,39 +9,36 @@ internal sealed class ServiceBusSenderFactory
 {
     private readonly ServiceBusClientProvider _clientProvider;
     private readonly EntityNameResolver _entityNameResolver;
-    private readonly IOptionsMonitor<QueueOptions> _queueOptionsMonitor;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
+    private readonly EntityOptionsStore _optionsStore;
 
     public ServiceBusSenderFactory(
-        IOptionsMonitor<QueueOptions> queueOptionsMonitor,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor,
+        EntityOptionsStore optionsStore,
         ServiceBusClientProvider clientProvider,
         EntityNameResolver entityNameResolver
     )
     {
-        _queueOptionsMonitor = queueOptionsMonitor;
-        _topicOptionsMonitor = topicOptionsMonitor;
+        _optionsStore = optionsStore;
         _clientProvider = clientProvider;
         _entityNameResolver = entityNameResolver;
     }
 
     public SenderEntityState GetQueueState(string logicalEntityName)
     {
-        QueueOptions options = _queueOptionsMonitor.Get(logicalEntityName);
+        QueueOptions options = _optionsStore.GetQueue(logicalEntityName);
 
         return new SenderEntityState(options.Enabled, options.BestEffort);
     }
 
     public SenderEntityState GetTopicState(string logicalEntityName)
     {
-        TopicOptions options = _topicOptionsMonitor.Get(logicalEntityName);
+        TopicOptions options = _optionsStore.GetTopic(logicalEntityName);
 
         return new SenderEntityState(options.Enabled, options.BestEffort);
     }
 
     public ServiceBusSender CreateQueueSender(string logicalEntityName)
     {
-        QueueOptions options = _queueOptionsMonitor.Get(logicalEntityName);
+        QueueOptions options = _optionsStore.GetQueue(logicalEntityName);
         ServiceBusClient client = _clientProvider.GetClient(options.ConnectionString!, options.ClientRetry);
 
         return client.CreateSender(_entityNameResolver.ResolveQueueName(options));
@@ -50,7 +46,7 @@ internal sealed class ServiceBusSenderFactory
 
     public ServiceBusSender CreateTopicSender(string logicalEntityName)
     {
-        TopicOptions options = _topicOptionsMonitor.Get(logicalEntityName);
+        TopicOptions options = _optionsStore.GetTopic(logicalEntityName);
         ServiceBusClient client = _clientProvider.GetClient(options.ConnectionString!, options.ClientRetry);
 
         return client.CreateSender(_entityNameResolver.ResolveTopicName(options));

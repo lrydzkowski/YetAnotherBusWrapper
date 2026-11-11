@@ -1,5 +1,4 @@
 using Azure.Messaging.ServiceBus;
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Clients;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Options;
@@ -10,43 +9,34 @@ internal sealed class ServiceBusProcessorFactory
 {
     private readonly ServiceBusClientProvider _clientProvider;
     private readonly EntityNameResolver _entityNameResolver;
-    private readonly IOptionsMonitor<QueueConsumerOptions> _queueConsumerOptionsMonitor;
-    private readonly IOptionsMonitor<QueueOptions> _queueOptionsMonitor;
-    private readonly IOptionsMonitor<SubscriptionOptions> _subscriptionOptionsMonitor;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
+    private readonly EntityOptionsStore _optionsStore;
 
     public ServiceBusProcessorFactory(
-        IOptionsMonitor<QueueOptions> queueOptionsMonitor,
-        IOptionsMonitor<QueueConsumerOptions> queueConsumerOptionsMonitor,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor,
-        IOptionsMonitor<SubscriptionOptions> subscriptionOptionsMonitor,
+        EntityOptionsStore optionsStore,
         ServiceBusClientProvider clientProvider,
         EntityNameResolver entityNameResolver
     )
     {
-        _queueOptionsMonitor = queueOptionsMonitor;
-        _queueConsumerOptionsMonitor = queueConsumerOptionsMonitor;
-        _topicOptionsMonitor = topicOptionsMonitor;
-        _subscriptionOptionsMonitor = subscriptionOptionsMonitor;
+        _optionsStore = optionsStore;
         _clientProvider = clientProvider;
         _entityNameResolver = entityNameResolver;
     }
 
     public bool IsQueueEnabled(string logicalEntityName)
     {
-        return _queueOptionsMonitor.Get(logicalEntityName).Enabled;
+        return _optionsStore.GetQueue(logicalEntityName).Enabled;
     }
 
     public bool IsSubscriptionEnabled(string topicLogicalEntityName, string subscriptionLogicalEntityName)
     {
-        return _topicOptionsMonitor.Get(topicLogicalEntityName).Enabled
-            && _subscriptionOptionsMonitor.Get(subscriptionLogicalEntityName).Enabled;
+        return _optionsStore.GetTopic(topicLogicalEntityName).Enabled
+            && _optionsStore.GetSubscription(subscriptionLogicalEntityName).Enabled;
     }
 
     public IProcessorAdapter CreateQueueProcessor(string logicalEntityName, ProcessorHandlers handlers)
     {
-        QueueOptions options = _queueOptionsMonitor.Get(logicalEntityName);
-        QueueConsumerOptions consumerOptions = _queueConsumerOptionsMonitor.Get(logicalEntityName);
+        QueueOptions options = _optionsStore.GetQueue(logicalEntityName);
+        QueueConsumerOptions consumerOptions = _optionsStore.GetQueueConsumer(logicalEntityName);
         ServiceBusClient client = _clientProvider.GetClient(options.ConnectionString!, options.ClientRetry);
         string queueName = _entityNameResolver.ResolveQueueName(options);
 
@@ -70,8 +60,8 @@ internal sealed class ServiceBusProcessorFactory
         ProcessorHandlers handlers
     )
     {
-        TopicOptions topicOptions = _topicOptionsMonitor.Get(topicLogicalEntityName);
-        SubscriptionOptions subscriptionOptions = _subscriptionOptionsMonitor.Get(subscriptionLogicalEntityName);
+        TopicOptions topicOptions = _optionsStore.GetTopic(topicLogicalEntityName);
+        SubscriptionOptions subscriptionOptions = _optionsStore.GetSubscription(subscriptionLogicalEntityName);
         ServiceBusClient client = _clientProvider.GetClient(topicOptions.ConnectionString!, topicOptions.ClientRetry);
         string topicName = _entityNameResolver.ResolveTopicName(topicOptions);
         string subscriptionName = _entityNameResolver.ResolveSubscriptionName(subscriptionOptions);

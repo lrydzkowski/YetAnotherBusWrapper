@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Clients;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Options;
@@ -11,20 +10,20 @@ internal sealed class TopicProvisioner
 {
     private readonly ServiceBusClientProvider _clientProvider;
     private readonly EntityNameResolver _entityNameResolver;
-    private readonly IOptionsMonitor<TopicOptions> _optionsMonitor;
+    private readonly EntityOptionsStore _optionsStore;
     private readonly YetAnotherBusWrapperRegistry _registry;
     private readonly ProvisioningRunner _runner;
 
     public TopicProvisioner(
         YetAnotherBusWrapperRegistry registry,
-        IOptionsMonitor<TopicOptions> optionsMonitor,
+        EntityOptionsStore optionsStore,
         ServiceBusClientProvider clientProvider,
         EntityNameResolver entityNameResolver,
         ILogger<TopicProvisioner> logger
     )
     {
         _registry = registry;
-        _optionsMonitor = optionsMonitor;
+        _optionsStore = optionsStore;
         _clientProvider = clientProvider;
         _entityNameResolver = entityNameResolver;
         _runner = new ProvisioningRunner(logger);
@@ -34,7 +33,7 @@ internal sealed class TopicProvisioner
     {
         foreach (TopicRegistration registration in _registry.Topics)
         {
-            TopicOptions options = _optionsMonitor.Get(registration.LogicalEntityName);
+            TopicOptions options = _optionsStore.GetTopic(registration.LogicalEntityName);
             if (!options.Enabled || !options.CreateOnStartup)
             {
                 continue;
@@ -48,7 +47,7 @@ internal sealed class TopicProvisioner
     {
         foreach (TopicRegistration registration in _registry.Topics)
         {
-            TopicOptions options = _optionsMonitor.Get(registration.LogicalEntityName);
+            TopicOptions options = _optionsStore.GetTopic(registration.LogicalEntityName);
             if (!options.Enabled || !options.DeleteOnShutdown)
             {
                 continue;

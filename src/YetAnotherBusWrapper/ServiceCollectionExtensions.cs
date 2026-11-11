@@ -34,6 +34,7 @@ public static class ServiceCollectionExtensions
     private static void AddCoreServices(this IServiceCollection services)
     {
         services.AddOptions();
+        services.TryAddSingleton<EntityOptionsStore>();
         services.TryAddSingleton<ServiceBusClientProvider>();
         services.TryAddSingleton<ClientRetryOptionsValidator>();
         services.TryAddSingleton<IMessageSerializer, JsonMessageSerializer>();

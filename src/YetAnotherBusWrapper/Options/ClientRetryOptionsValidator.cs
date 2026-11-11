@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Registration;
 
@@ -6,19 +5,16 @@ namespace YetAnotherBusWrapper.Options;
 
 internal sealed class ClientRetryOptionsValidator
 {
-    private readonly IOptionsMonitor<QueueOptions> _queueOptionsMonitor;
+    private readonly EntityOptionsStore _optionsStore;
     private readonly YetAnotherBusWrapperRegistry _registry;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
 
     public ClientRetryOptionsValidator(
         YetAnotherBusWrapperRegistry registry,
-        IOptionsMonitor<QueueOptions> queueOptionsMonitor,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor
+        EntityOptionsStore optionsStore
     )
     {
         _registry = registry;
-        _queueOptionsMonitor = queueOptionsMonitor;
-        _topicOptionsMonitor = topicOptionsMonitor;
+        _optionsStore = optionsStore;
     }
 
     public void EnsureConsistentRetryOptions()
@@ -37,7 +33,7 @@ internal sealed class ClientRetryOptionsValidator
     {
         foreach (QueueRegistration registration in _registry.Queues)
         {
-            QueueOptions options = _queueOptionsMonitor.Get(registration.LogicalEntityName);
+            QueueOptions options = _optionsStore.GetQueue(registration.LogicalEntityName);
             if (!options.Enabled)
             {
                 continue;
@@ -53,7 +49,7 @@ internal sealed class ClientRetryOptionsValidator
 
         foreach (TopicRegistration registration in _registry.Topics)
         {
-            TopicOptions options = _topicOptionsMonitor.Get(registration.LogicalEntityName);
+            TopicOptions options = _optionsStore.GetTopic(registration.LogicalEntityName);
             if (!options.Enabled)
             {
                 continue;

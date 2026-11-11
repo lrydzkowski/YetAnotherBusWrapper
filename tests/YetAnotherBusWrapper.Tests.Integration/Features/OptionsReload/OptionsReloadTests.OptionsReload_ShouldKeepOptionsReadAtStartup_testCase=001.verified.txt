@@ -1,0 +1,55 @@
+﻿{
+  TestCaseId: 1,
+  Started: true,
+  QueuesAfterStart: [
+    options-reload-t001-renamed,
+    options-reload-t001-reports
+  ],
+  Send: {
+    Result: {
+      Status: Sent,
+      MessageIds: [
+        Guid_1
+      ]
+    },
+    ThrownException: null
+  },
+  Deliveries: [
+    {
+      ConsumerInstance: 1,
+      Message: {
+        Number: 1,
+        Content: report-1
+      },
+      Context: {
+        MessageId: Guid_1,
+        CorrelationId: Guid_2,
+        DeliveryCount: 1,
+        SessionId: null,
+        EnqueuedTime: {Scrubbed},
+        ApplicationProperties: {}
+      }
+    }
+  ],
+  QueuesAfterStop: [
+    options-reload-t001-renamed
+  ],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'reports' (entity name 'options-reload-t001-reports')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'reports'
+    },
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Deleted queue 'reports' (entity name 'options-reload-t001-reports')
+    }
+  ],
+  ThrownException: null
+}

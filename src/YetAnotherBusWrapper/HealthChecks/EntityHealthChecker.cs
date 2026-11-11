@@ -1,7 +1,6 @@
 using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
 using YetAnotherBusWrapper.Clients;
 using YetAnotherBusWrapper.Naming;
 using YetAnotherBusWrapper.Options;
@@ -13,21 +12,15 @@ internal sealed class EntityHealthChecker
 {
     private readonly ServiceBusClientProvider _clientProvider;
     private readonly EntityNameResolver _entityNameResolver;
-    private readonly IOptionsMonitor<QueueOptions> _queueOptionsMonitor;
-    private readonly IOptionsMonitor<SubscriptionOptions> _subscriptionOptionsMonitor;
-    private readonly IOptionsMonitor<TopicOptions> _topicOptionsMonitor;
+    private readonly EntityOptionsStore _optionsStore;
 
     public EntityHealthChecker(
-        IOptionsMonitor<QueueOptions> queueOptionsMonitor,
-        IOptionsMonitor<TopicOptions> topicOptionsMonitor,
-        IOptionsMonitor<SubscriptionOptions> subscriptionOptionsMonitor,
+        EntityOptionsStore optionsStore,
         ServiceBusClientProvider clientProvider,
         EntityNameResolver entityNameResolver
     )
     {
-        _queueOptionsMonitor = queueOptionsMonitor;
-        _topicOptionsMonitor = topicOptionsMonitor;
-        _subscriptionOptionsMonitor = subscriptionOptionsMonitor;
+        _optionsStore = optionsStore;
         _clientProvider = clientProvider;
         _entityNameResolver = entityNameResolver;
     }
@@ -92,7 +85,7 @@ internal sealed class EntityHealthChecker
 
     private async Task<EntityState> GetQueueStateAsync(string logicalEntityName, CancellationToken cancellationToken)
     {
-        QueueOptions options = _queueOptionsMonitor.Get(logicalEntityName);
+        QueueOptions options = _optionsStore.GetQueue(logicalEntityName);
         if (!options.Enabled)
         {
             return EntityState.Disabled;
@@ -117,7 +110,7 @@ internal sealed class EntityHealthChecker
 
     private async Task<EntityState> GetTopicStateAsync(string logicalEntityName, CancellationToken cancellationToken)
     {
-        TopicOptions options = _topicOptionsMonitor.Get(logicalEntityName);
+        TopicOptions options = _optionsStore.GetTopic(logicalEntityName);
         if (!options.Enabled)
         {
             return EntityState.Disabled;
@@ -137,8 +130,8 @@ internal sealed class EntityHealthChecker
         CancellationToken cancellationToken
     )
     {
-        TopicOptions topicOptions = _topicOptionsMonitor.Get(registration.TopicLogicalEntityName);
-        SubscriptionOptions options = _subscriptionOptionsMonitor.Get(registration.LogicalEntityName);
+        TopicOptions topicOptions = _optionsStore.GetTopic(registration.TopicLogicalEntityName);
+        SubscriptionOptions options = _optionsStore.GetSubscription(registration.LogicalEntityName);
         if (!topicOptions.Enabled || !options.Enabled)
         {
             return EntityState.Disabled;
