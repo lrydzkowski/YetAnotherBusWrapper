@@ -15,5 +15,7 @@ internal static class TestCasesGenerator
         yield return new T09SameSubscriptionTwice();
         yield return new T10ValidRegistrations();
         yield return new T11SecondQueueConsumer();
+        yield return new T12SecondMessageTypeForQueue();
+        yield return new T13SecondMessageTypeForTopic();
     }
 }

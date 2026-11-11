@@ -1,3 +1,5 @@
+using YetAnotherBusWrapper.Extensions;
+
 namespace YetAnotherBusWrapper.Registration;
 
 internal sealed class YetAnotherBusWrapperRegistry
@@ -23,12 +25,14 @@ internal sealed class YetAnotherBusWrapperRegistry
     public void AddQueue(QueueRegistration registration)
     {
         EnsureMessageTypeIsNotRegistered(registration.MessageType, $"queue '{registration.LogicalEntityName}'");
+        EnsureQueueNameIsNotRegistered(registration);
         _queues.Add(registration.MessageType, registration);
     }
 
     public void AddTopic(TopicRegistration registration)
     {
         EnsureMessageTypeIsNotRegistered(registration.MessageType, $"topic '{registration.LogicalEntityName}'");
+        EnsureTopicNameIsNotRegistered(registration);
         _topics.Add(registration.MessageType, registration);
     }
 
@@ -116,5 +120,39 @@ internal sealed class YetAnotherBusWrapperRegistry
                 + $"registered for topic '{topicRegistration.LogicalEntityName}'."
             );
         }
+    }
+
+    private void EnsureQueueNameIsNotRegistered(QueueRegistration registration)
+    {
+        QueueRegistration? existingRegistration = _queues.Values.FirstOrDefault(queue =>
+            queue.LogicalEntityName.EqualsOrdinal(registration.LogicalEntityName)
+        );
+        if (existingRegistration is null)
+        {
+            return;
+        }
+
+        throw new InvalidOperationException(
+            $"Queue '{registration.LogicalEntityName}' can't be registered for message type "
+            + $"'{registration.MessageType.FullName}' because it is already registered for message type "
+            + $"'{existingRegistration.MessageType.FullName}'."
+        );
+    }
+
+    private void EnsureTopicNameIsNotRegistered(TopicRegistration registration)
+    {
+        TopicRegistration? existingRegistration = _topics.Values.FirstOrDefault(topic =>
+            topic.LogicalEntityName.EqualsOrdinal(registration.LogicalEntityName)
+        );
+        if (existingRegistration is null)
+        {
+            return;
+        }
+
+        throw new InvalidOperationException(
+            $"Topic '{registration.LogicalEntityName}' can't be registered for message type "
+            + $"'{registration.MessageType.FullName}' because it is already registered for message type "
+            + $"'{existingRegistration.MessageType.FullName}'."
+        );
     }
 }
