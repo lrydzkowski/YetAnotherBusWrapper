@@ -454,10 +454,11 @@ Every received message gets a correlation ID: the message's own
 `CorrelationId` when it is set, and a new GUID otherwise. The library
 opens a logging scope with the correlation ID, message ID, logical entity
 name, and delivery count, so every log written while the message is
-handled can be found together. Consumer exceptions are logged in that
-scope. Errors
-reported by the Service Bus processor, such as connection problems, are
-logged with the logical entity name.
+handled can be found together. Consumer exceptions are logged once, in
+that scope. A consumer cancelled while the processor stops is logged at
+`Information` instead of `Error`. Other errors reported by the Service Bus
+processor, such as connection problems, are logged with the logical entity
+name.
 
 ## Retries and the dead-letter queue
 

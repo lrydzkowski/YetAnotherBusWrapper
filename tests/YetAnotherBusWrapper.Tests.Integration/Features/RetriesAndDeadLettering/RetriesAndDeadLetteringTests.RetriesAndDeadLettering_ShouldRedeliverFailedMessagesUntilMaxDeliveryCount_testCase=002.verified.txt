@@ -87,13 +87,6 @@
       ]
     },
     {
-      Level: Error,
-      Logger: ConsumerProcessor,
-      Message: Service Bus processor error for queue 'orders' (entity name 'retries-t002-orders', source ProcessMessageCallback),
-      ExceptionType: InvalidOperationException,
-      Scopes: []
-    },
-    {
       Level: Information,
       Logger: FailingConsumer,
       Message: Consuming order 'order-001' on delivery 2,

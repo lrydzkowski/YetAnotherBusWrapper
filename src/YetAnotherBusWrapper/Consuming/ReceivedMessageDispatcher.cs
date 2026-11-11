@@ -94,12 +94,24 @@ internal sealed partial class ReceivedMessageDispatcher<TMessage> : IReceivedMes
                 (IMessageConsumer<TMessage>)serviceProvider.GetRequiredService(_consumerType);
             await consumer.ConsumeAsync(message, context, cancellationToken);
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            LogConsumerCancelled(_consumerType.FullName, context.MessageId, _logicalEntityName);
+            throw;
+        }
         catch (Exception exception)
         {
             LogConsumerFailed(exception, _consumerType.FullName, context.MessageId, _logicalEntityName);
             throw;
         }
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message =
+            "Consumer '{ConsumerType}' was cancelled while handling message '{MessageId}' from '{LogicalEntityName}'"
+    )]
+    private partial void LogConsumerCancelled(string? consumerType, string messageId, string logicalEntityName);
 
     [LoggerMessage(
         Level = LogLevel.Error,

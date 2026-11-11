@@ -5,5 +5,6 @@ internal static class TestCasesGenerator
     public static IEnumerable<IShutdownTestCase> Generate()
     {
         yield return new T01StopTimeoutElapsedWhileConsumerIsBusy();
+        yield return new T02ConsumerCancelledOnStop();
     }
 }

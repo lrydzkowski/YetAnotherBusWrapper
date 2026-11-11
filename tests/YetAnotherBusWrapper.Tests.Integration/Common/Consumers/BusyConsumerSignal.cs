@@ -4,12 +4,15 @@ public sealed class BusyConsumerSignal
 {
     private readonly TaskCompletionSource _started = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-    public BusyConsumerSignal(TimeSpan busyDuration)
+    public BusyConsumerSignal(TimeSpan busyDuration, bool observesCancellation)
     {
         BusyDuration = busyDuration;
+        ObservesCancellation = observesCancellation;
     }
 
     public TimeSpan BusyDuration { get; }
+
+    public bool ObservesCancellation { get; }
 
     public void MarkStarted()
     {
