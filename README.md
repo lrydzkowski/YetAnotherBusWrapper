@@ -524,9 +524,11 @@ application with only send and listen rights still runs. Set
 `FailStartupOnProvisioningError` on an entity to make its provisioning
 failure stop startup.
 
-When the host stops, consumers stop first. Then the library deletes the
-entities whose options set `DeleteOnShutdown`, subscriptions first.
-Deletion failures are logged and never stop shutdown.
+When the host stops, all consumers stop in parallel first. Then the library
+deletes the entities whose options set `DeleteOnShutdown`, subscriptions
+first. Deletion also runs when a consumer fails to stop or the host shutdown
+timeout elapses, and it does not observe the shutdown token. Deletion
+failures are logged and never stop shutdown.
 
 If startup fails after provisioning has begun, the library stops the
 consumers it started and deletes the `DeleteOnShutdown` entities before it
