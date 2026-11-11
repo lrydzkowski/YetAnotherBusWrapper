@@ -15,6 +15,8 @@ public sealed class BusyConsumer : IMessageConsumer<OrderPlaced>
     public async Task ConsumeAsync(OrderPlaced message, MessageContext context, CancellationToken cancellationToken)
     {
         _signal.MarkStarted();
-        await Task.Delay(_signal.BusyDuration, CancellationToken.None);
+        CancellationToken delayCancellationToken =
+            _signal.ObservesCancellation ? cancellationToken : CancellationToken.None;
+        await Task.Delay(_signal.BusyDuration, delayCancellationToken);
     }
 }

@@ -50,7 +50,7 @@ public class ShutdownTests
     {
         await using TestCaseScope scope = new(_emulator, Feature, testCase.TestCaseId);
         string topicName = scope.GetTopicName(TopicLogicalEntityName);
-        BusyConsumerSignal billingSignal = new(testCase.ConsumerBusyDuration);
+        BusyConsumerSignal billingSignal = new(testCase.ConsumerBusyDuration, testCase.ConsumerObservesCancellation);
         DeliveryRecorder<OrderPlaced> shippingRecorder = new();
 
         bool stopped = false;

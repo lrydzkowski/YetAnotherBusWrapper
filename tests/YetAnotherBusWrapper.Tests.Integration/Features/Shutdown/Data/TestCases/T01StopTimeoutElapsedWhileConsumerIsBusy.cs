@@ -6,5 +6,7 @@ internal class T01StopTimeoutElapsedWhileConsumerIsBusy : IShutdownTestCase
 
     public TimeSpan ConsumerBusyDuration => TimeSpan.FromSeconds(5);
 
+    public bool ConsumerObservesCancellation => false;
+
     public TimeSpan StopTimeout => TimeSpan.FromSeconds(1);
 }

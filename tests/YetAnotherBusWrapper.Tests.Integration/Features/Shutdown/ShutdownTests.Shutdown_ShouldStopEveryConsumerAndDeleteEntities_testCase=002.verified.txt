@@ -1,0 +1,57 @@
+﻿{
+  TestCaseId: 2,
+  Stopped: true,
+  SubscriptionsAfterStart: [
+    {
+      TopicName: shutdown-t002-orders,
+      SubscriptionName: billing,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00
+    },
+    {
+      TopicName: shutdown-t002-orders,
+      SubscriptionName: shipping,
+      MaxDeliveryCount: 10,
+      LockDuration: 00:01:00
+    }
+  ],
+  SubscriptionsAfterStop: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: TopicProvisioner,
+      Message: Created topic 'orders' (entity name 'shutdown-t002-orders')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/billing' (entity name 'shutdown-t002-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Created subscription 'orders/shipping' (entity name 'shutdown-t002-orders/shipping')
+    },
+    {
+      Level: Debug,
+      Logger: MessageSender,
+      Message: Sent a batch of 1 messages to 'orders'
+    },
+    {
+      Level: Information,
+      Logger: ReceivedMessageDispatcher,
+      Message: Consumer 'YetAnotherBusWrapper.Tests.Integration.Common.Consumers.BusyConsumer' was cancelled while handling message 'Guid_1' from 'orders/billing'
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Deleted subscription 'orders/billing' (entity name 'shutdown-t002-orders/billing')
+    },
+    {
+      Level: Information,
+      Logger: SubscriptionProvisioner,
+      Message: Deleted subscription 'orders/shipping' (entity name 'shutdown-t002-orders/shipping')
+    }
+  ],
+  ThrownException: null
+}

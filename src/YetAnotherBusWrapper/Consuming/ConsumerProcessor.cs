@@ -82,6 +82,11 @@ internal sealed partial class ConsumerProcessor : IConsumerProcessor
 
     private Task HandleProcessorErrorAsync(ProcessErrorEventArgs args)
     {
+        if (args.ErrorSource == ServiceBusErrorSource.ProcessMessageCallback)
+        {
+            return Task.CompletedTask;
+        }
+
         LogProcessorError(
             args.Exception,
             _entityKind.ToLogName(),
