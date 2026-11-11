@@ -1,0 +1,8 @@
+﻿{
+  TestCaseId: 12,
+  Registered: false,
+  ThrownException: {
+    Message: Queue 'orders' can't be registered for message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.ReportGenerated' because it is already registered for message type 'YetAnotherBusWrapper.Tests.Integration.Common.Messages.OrderPlaced'.,
+    TypeName: InvalidOperationException
+  }
+}

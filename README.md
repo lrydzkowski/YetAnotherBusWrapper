@@ -267,6 +267,8 @@ throw `InvalidOperationException` immediately, inside the
 `AddYetAnotherBusWrapper` callback:
 
 - A second queue or topic for a message type that is already registered.
+- A second queue with the logical entity name of a registered queue, or a
+  second topic with the logical entity name of a registered topic.
 - A queue consumer for a message type without a queue, or with a topic.
 - A topic consumer for a message type without a topic, or with a queue.
 - A second queue consumer for a queue that already has one.
