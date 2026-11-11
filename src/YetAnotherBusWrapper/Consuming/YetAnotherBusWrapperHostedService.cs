@@ -95,8 +95,7 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
             }
 
             _isStarted = false;
-            await StopConsumersAsync(cancellationToken);
-            await DeleteEntitiesAsync(cancellationToken);
+            await StopConsumersAndDeleteEntitiesAsync(cancellationToken);
         }
         finally
         {
@@ -119,11 +118,16 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
         }
     }
 
-    private async Task RollBackStartupAsync()
+    private Task RollBackStartupAsync()
+    {
+        return StopConsumersAndDeleteEntitiesAsync(CancellationToken.None);
+    }
+
+    private async Task StopConsumersAndDeleteEntitiesAsync(CancellationToken stopCancellationToken)
     {
         try
         {
-            await StopConsumersAsync(CancellationToken.None);
+            await StopConsumersAsync(stopCancellationToken);
         }
         finally
         {
@@ -133,9 +137,14 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
 
     private async Task StopConsumersAsync(CancellationToken cancellationToken)
     {
-        foreach (IConsumerProcessor processor in _processors)
+        Task stopTask = Task.WhenAll(_processors.Select(processor => processor.StopAsync(cancellationToken)));
+        try
         {
-            await processor.StopAsync(cancellationToken);
+            await stopTask;
+        }
+        catch (Exception) when (stopTask.Exception is { InnerExceptions.Count: > 1 } stopExceptions)
+        {
+            throw new AggregateException("More than one consumer failed to stop.", stopExceptions.InnerExceptions);
         }
     }
 
