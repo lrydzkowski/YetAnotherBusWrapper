@@ -1,13 +1,15 @@
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using YetAnotherBusWrapper.Options;
 using YetAnotherBusWrapper.Provisioning;
 
 namespace YetAnotherBusWrapper.Consuming;
 
-internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDisposable, IAsyncDisposable
+internal sealed partial class YetAnotherBusWrapperHostedService : IHostedService, IDisposable, IAsyncDisposable
 {
     private readonly ClientRetryOptionsValidator _clientRetryOptionsValidator;
     private readonly SemaphoreSlim _lifecycleLock = new(1, 1);
+    private readonly ILogger<YetAnotherBusWrapperHostedService> _logger;
     private readonly IReadOnlyList<IConsumerProcessor> _processors;
     private readonly QueueProvisioner _queueProvisioner;
     private readonly SubscriptionProvisioner _subscriptionProvisioner;
@@ -20,7 +22,8 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
         TopicProvisioner topicProvisioner,
         SubscriptionProvisioner subscriptionProvisioner,
         IEnumerable<IConsumerProcessor> processors,
-        ClientRetryOptionsValidator clientRetryOptionsValidator
+        ClientRetryOptionsValidator clientRetryOptionsValidator,
+        ILogger<YetAnotherBusWrapperHostedService> logger
     )
     {
         _queueProvisioner = queueProvisioner;
@@ -28,6 +31,7 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
         _subscriptionProvisioner = subscriptionProvisioner;
         _processors = processors.ToList();
         _clientRetryOptionsValidator = clientRetryOptionsValidator;
+        _logger = logger;
     }
 
     public async ValueTask DisposeAsync()
@@ -118,9 +122,16 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
         }
     }
 
-    private Task RollBackStartupAsync()
+    private async Task RollBackStartupAsync()
     {
-        return StopConsumersAndDeleteEntitiesAsync(CancellationToken.None);
+        try
+        {
+            await StopConsumersAndDeleteEntitiesAsync(CancellationToken.None);
+        }
+        catch (Exception exception)
+        {
+            LogStartupRollbackFailed(exception);
+        }
     }
 
     private async Task StopConsumersAndDeleteEntitiesAsync(CancellationToken stopCancellationToken)
@@ -162,4 +173,10 @@ internal sealed class YetAnotherBusWrapperHostedService : IHostedService, IDispo
             await processor.DisposeAsync();
         }
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Error,
+        Message = "Failed to roll back startup. The original startup error is rethrown"
+    )]
+    private partial void LogStartupRollbackFailed(Exception exception);
 }

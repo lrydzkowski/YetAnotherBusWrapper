@@ -535,7 +535,8 @@ failures are logged and never stop shutdown.
 
 If startup fails after provisioning has begun, the library stops the
 consumers it started and deletes the `DeleteOnShutdown` entities before it
-rethrows the startup error.
+rethrows the startup error. If this rollback fails, the library logs the
+rollback failure and still rethrows the startup error.
 
 ## Entity names and the instance suffix
 
