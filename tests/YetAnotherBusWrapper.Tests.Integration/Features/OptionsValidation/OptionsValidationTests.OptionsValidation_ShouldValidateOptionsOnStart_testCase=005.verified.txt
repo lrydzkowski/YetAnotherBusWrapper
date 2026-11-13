@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 5,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Queue 'orders' has MaxDeliveryCount 0, which must be at least 1.; Queue 'orders' has DuplicateDetectionWindow 00:00:19, which must be zero or between 00:00:20 and 7.00:00:00.; Queue 'orders' has ClientRetry.MaxRetries -1, which must be between 0 and 100.; Queue 'orders' has ClientRetry.TryTimeout 01:01:00, which must be between 00:00:00 and 01:00:00.; Queue 'orders' has ClientRetry.MaxDelay -00:00:01, which must not be negative.,
+    TypeName: OptionsValidationException
+  }
+}

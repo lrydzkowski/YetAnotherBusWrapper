@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 7,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Topic 'orders' has DuplicateDetectionWindow 8.00:00:00, which must be zero or between 00:00:20 and 7.00:00:00.; Topic 'orders' has ClientRetry.MaxRetries 101, which must be between 0 and 100.; Topic 'orders' has ClientRetry.TryTimeout -00:00:01, which must be between 00:00:00 and 01:00:00.; Topic 'orders' has ClientRetry.MaxDelay -00:00:01, which must not be negative.,
+    TypeName: OptionsValidationException
+  }
+}

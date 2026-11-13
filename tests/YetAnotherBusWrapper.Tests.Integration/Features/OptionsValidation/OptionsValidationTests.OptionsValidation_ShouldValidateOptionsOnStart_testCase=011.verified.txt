@@ -1,0 +1,12 @@
+﻿{
+  TestCaseId: 11,
+  Started: true,
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Created queue 'orders' (entity name 'options-validation-t011-orders')
+    }
+  ],
+  ThrownException: null
+}

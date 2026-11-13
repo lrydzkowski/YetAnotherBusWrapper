@@ -214,12 +214,33 @@ bus.AddQueue<OrderPlaced>("orders")
 
 A scoped service cannot be used as `TDep` directly.
 
-Queue, topic, and subscription options are validated when the host starts.
-An enabled queue needs `ConnectionString` and `QueueName`, an enabled topic
-needs `ConnectionString` and `TopicName`, and an enabled subscription needs
-`SubscriptionName`. A missing value fails startup with a message that names
-the logical entity name and the missing option. Disabled entities skip
-validation.
+Queue, queue consumer, topic, and subscription options are validated when
+the host starts. An enabled queue needs `ConnectionString` and `QueueName`,
+an enabled topic needs `ConnectionString` and `TopicName`, and an enabled
+subscription needs `SubscriptionName`. A missing value fails startup with a
+message that names the logical entity name and the missing option. Disabled
+entities skip validation, and so do the consumers of a disabled queue and
+the subscriptions of a disabled topic.
+
+Numeric and time options are validated at the same time, including options
+that the current setup does not use. A value outside its range fails startup
+with a message that names the logical entity name, the option, and the
+allowed range:
+
+- `MaxDeliveryCount`: at least `1`.
+- `DuplicateDetectionWindow`: zero, or between 20 seconds and 7 days.
+- `ClientRetry.MaxRetries`: between `0` and `100`.
+- `ClientRetry.TryTimeout`: between zero and 1 hour.
+- `ClientRetry.MaxDelay`: zero or more.
+- `MaxConcurrentCalls` and `MaxConcurrentSessions`: at least `1`.
+- `PrefetchCount`: zero or more.
+- `MaxAutoLockRenewalDuration`: zero or more, or
+  `Timeout.InfiniteTimeSpan`.
+- `SessionIdleTimeout`: unset, or greater than zero.
+
+When more than one registration fails validation, startup throws an
+`AggregateException` that holds one `OptionsValidationException` for each
+of them.
 
 `QueueOptions`:
 
@@ -535,7 +556,8 @@ failures are logged and never stop shutdown.
 
 If startup fails after provisioning has begun, the library stops the
 consumers it started and deletes the `DeleteOnShutdown` entities before it
-rethrows the startup error.
+rethrows the startup error. If this rollback fails, the library logs the
+rollback failure and still rethrows the startup error.
 
 ## Entity names and the instance suffix
 

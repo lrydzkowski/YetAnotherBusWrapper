@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 6,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Queue consumer 'orders' has MaxConcurrentCalls 0, which must be at least 1.; Queue consumer 'orders' has PrefetchCount -1, which must not be negative.; Queue consumer 'orders' has MaxAutoLockRenewalDuration -00:00:01, which must not be negative, except for Timeout.InfiniteTimeSpan.; Queue consumer 'orders' has MaxConcurrentSessions 0, which must be at least 1.; Queue consumer 'orders' has SessionIdleTimeout 00:00:00, which must be greater than zero.,
+    TypeName: OptionsValidationException
+  }
+}

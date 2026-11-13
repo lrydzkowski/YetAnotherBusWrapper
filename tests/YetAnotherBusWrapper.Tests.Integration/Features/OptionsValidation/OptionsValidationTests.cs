@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
+using YetAnotherBusWrapper.Tests.Integration.Common.Consumers;
 using YetAnotherBusWrapper.Tests.Integration.Common.Context;
 using YetAnotherBusWrapper.Tests.Integration.Common.Emulator;
 using YetAnotherBusWrapper.Tests.Integration.Common.Host;
@@ -18,8 +18,6 @@ namespace YetAnotherBusWrapper.Tests.Integration.Features.OptionsValidation;
 public class OptionsValidationTests
 {
     private const string Feature = "options-validation";
-    private const string LogicalEntityName = "orders";
-    private const int RegisteredServicesTestCaseId = 4;
 
     private readonly ServiceBusEmulatorFixture _emulator;
     private readonly VerifySettings _verifySettings = VerifySettingsBuilder.Build();
@@ -34,7 +32,7 @@ public class OptionsValidationTests
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public async Task OptionsValidation_ShouldValidateEnabledQueuesOnStart(IOptionsValidationTestCase testCase)
+    public async Task OptionsValidation_ShouldValidateOptionsOnStart(IOptionsValidationTestCase testCase)
     {
         OptionsValidationTestResult result = await RunAsync(
             testCase.TestCaseId,
@@ -43,18 +41,6 @@ public class OptionsValidationTests
         );
 
         await Verify(result, _verifySettings).UseParameters(testCase.TestCaseId.ToString("D3"));
-    }
-
-    [Fact]
-    public async Task OptionsValidation_ShouldAcceptValuesFromRegisteredServices()
-    {
-        OptionsValidationTestResult result = await RunAsync(
-            RegisteredServicesTestCaseId,
-            BuildHostWithValuesFromRegisteredServices,
-            TestContext.Current.CancellationToken
-        );
-
-        await Verify(result, _verifySettings);
     }
 
     private async Task<OptionsValidationTestResult> RunAsync(
@@ -86,46 +72,13 @@ public class OptionsValidationTests
     {
         return TestHostBuilder.Build(
             scope.Logs,
-            services => services.AddYetAnotherBusWrapper(
-                builder => builder.AddQueue<OrderPlaced>(LogicalEntityName)
-                    .Configure(options => testCase.ConfigureQueue(options, scope))
-            )
-        );
-    }
-
-    private static IHost BuildHostWithValuesFromRegisteredServices(TestCaseScope scope)
-    {
-        return TestHostBuilder.Build(
-            scope.Logs,
             services =>
             {
-                services.Configure<QueueConnectionValues>(
-                    values =>
-                    {
-                        values.ConnectionString = scope.ConnectionString;
-                        values.QueueName = scope.GetQueueName(LogicalEntityName);
-                    }
-                );
-                services.AddYetAnotherBusWrapper(
-                    builder => builder.AddQueue<OrderPlaced>(LogicalEntityName)
-                        .Configure<IOptions<QueueConnectionValues>>(
-                            (options, values) =>
-                            {
-                                options.ConnectionString = values.Value.ConnectionString;
-                                options.QueueName = values.Value.QueueName;
-                            }
-                        )
-                );
+                services.AddSingleton(new DeliveryRecorder<OrderPlaced>());
+                services.AddYetAnotherBusWrapper(builder => testCase.Configure(builder, scope));
             }
         );
     }
-}
-
-internal class QueueConnectionValues
-{
-    public string? ConnectionString { get; set; }
-
-    public string? QueueName { get; set; }
 }
 
 internal record OptionsValidationTestResult(

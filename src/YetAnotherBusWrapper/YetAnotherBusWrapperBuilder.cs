@@ -79,7 +79,7 @@ public sealed class YetAnotherBusWrapperBuilder
             (processorFactory, handlers) => processorFactory.CreateQueueProcessor(logicalEntityName, handlers)
         );
 
-        return Services.AddOptions<QueueConsumerOptions>(logicalEntityName);
+        return Services.AddOptions<QueueConsumerOptions>(logicalEntityName).ValidateOnStart();
     }
 
     public OptionsBuilder<SubscriptionOptions> AddTopicConsumer<TConsumer, TMessage>(

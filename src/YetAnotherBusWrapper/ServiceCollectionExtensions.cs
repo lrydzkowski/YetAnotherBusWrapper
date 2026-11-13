@@ -49,6 +49,9 @@ public static class ServiceCollectionExtensions
             ServiceDescriptor.Singleton<IValidateOptions<QueueOptions>, QueueOptionsValidator>()
         );
         services.TryAddEnumerable(
+            ServiceDescriptor.Singleton<IValidateOptions<QueueConsumerOptions>, QueueConsumerOptionsValidator>()
+        );
+        services.TryAddEnumerable(
             ServiceDescriptor.Singleton<IValidateOptions<TopicOptions>, TopicOptionsValidator>()
         );
         services.TryAddEnumerable(

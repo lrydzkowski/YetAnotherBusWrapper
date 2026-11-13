@@ -11,5 +11,6 @@ internal static class TestCasesGenerator
         yield return new T05DisposedWithoutStop();
         yield return new T06HostedServicesDisabled();
         yield return new T07ServicesDisposedSynchronously();
+        yield return new T08StartupRollbackFails();
     }
 }

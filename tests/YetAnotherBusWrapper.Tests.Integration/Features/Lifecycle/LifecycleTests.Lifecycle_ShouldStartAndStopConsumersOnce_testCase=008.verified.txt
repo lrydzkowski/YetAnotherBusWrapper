@@ -1,0 +1,22 @@
+﻿{
+  TestCaseId: 8,
+  SendOutcomes: [],
+  Deliveries: [],
+  RemainingMessages: [],
+  Logs: [
+    {
+      Level: Information,
+      Logger: QueueProvisioner,
+      Message: Queue 'orders' already exists (entity name 'lifecycle-t008-orders')
+    },
+    {
+      Level: Error,
+      Logger: YetAnotherBusWrapperHostedService,
+      Message: Failed to roll back startup. The original startup error is rethrown
+    }
+  ],
+  ThrownException: {
+    Message: Consumer failed to start.,
+    TypeName: InvalidOperationException
+  }
+}
