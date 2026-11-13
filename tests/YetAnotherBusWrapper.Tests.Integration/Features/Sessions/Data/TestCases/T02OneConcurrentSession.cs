@@ -10,6 +10,8 @@ internal class T02OneConcurrentSession : ISessionsTestCase
 
     public ConsumerEntityKind EntityKind => ConsumerEntityKind.Queue;
 
+    public bool CreateOnStartup => false;
+
     public int MaxConcurrentSessions => 1;
 
     public TimeSpan? SessionIdleTimeout => TimeSpan.FromSeconds(1);

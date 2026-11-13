@@ -7,5 +7,7 @@ internal static class TestCasesGenerator
         yield return new T01TwoSessionsOnQueue();
         yield return new T02OneConcurrentSession();
         yield return new T03TwoSessionsOnSubscription();
+        yield return new T04QueueCreatedOnStartup();
+        yield return new T05SubscriptionCreatedOnStartup();
     }
 }

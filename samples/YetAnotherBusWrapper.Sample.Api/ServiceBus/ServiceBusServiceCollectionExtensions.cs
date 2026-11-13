@@ -112,8 +112,7 @@ internal static class ServiceBusServiceCollectionExtensions
     {
         busBuilder.AddQueue<ShipmentStatusChanged>(
                 LogicalEntityNames.Queues.Shipments,
-                options => options.RequiresSession = true,
-                (serviceBusMessage, message) => serviceBusMessage.SessionId = message.ShipmentId
+                configureMessage: (serviceBusMessage, message) => serviceBusMessage.SessionId = message.ShipmentId
             )
             .Bind(serviceBus)
             .Bind(serviceBus.GetSection("Shipments"));

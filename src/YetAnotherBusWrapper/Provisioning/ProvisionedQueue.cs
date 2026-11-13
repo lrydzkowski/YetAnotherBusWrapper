@@ -8,6 +8,7 @@ namespace YetAnotherBusWrapper.Provisioning;
 internal sealed class ProvisionedQueue : IProvisionedEntity
 {
     private readonly ServiceBusAdministrationClient _client;
+    private readonly QueueConsumerOptions _consumerOptions;
     private readonly EntityNameResolver _entityNameResolver;
     private readonly QueueOptions _options;
     private readonly QueueRegistration _registration;
@@ -15,12 +16,14 @@ internal sealed class ProvisionedQueue : IProvisionedEntity
     public ProvisionedQueue(
         QueueRegistration registration,
         QueueOptions options,
+        QueueConsumerOptions consumerOptions,
         ServiceBusAdministrationClient client,
         EntityNameResolver entityNameResolver
     )
     {
         _registration = registration;
         _options = options;
+        _consumerOptions = consumerOptions;
         _client = client;
         _entityNameResolver = entityNameResolver;
     }
@@ -55,7 +58,11 @@ internal sealed class ProvisionedQueue : IProvisionedEntity
 
     private CreateQueueOptions BuildCreateOptions()
     {
-        CreateQueueOptions createOptions = new(ResolveEntityName()) { MaxDeliveryCount = _options.MaxDeliveryCount };
+        CreateQueueOptions createOptions = new(ResolveEntityName())
+        {
+            MaxDeliveryCount = _options.MaxDeliveryCount,
+            RequiresSession = _consumerOptions.SessionsEnabled
+        };
         if (_options.DuplicateDetectionWindow > TimeSpan.Zero)
         {
             createOptions.RequiresDuplicateDetection = true;
