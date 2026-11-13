@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using YetAnotherBusWrapper.Extensions;
 using YetAnotherBusWrapper.Options;
 
 namespace YetAnotherBusWrapper.Naming;
@@ -54,6 +55,11 @@ internal sealed partial class EntityNameResolver
         if (baseName.Length == 0)
         {
             throw new InvalidOperationException($"{kind} name '{configuredName}' contains no letters or digits.");
+        }
+
+        if (!baseName.EqualsOrdinalIgnoreCase(configuredName))
+        {
+            LogEntityNameSanitized(kind, configuredName, baseName);
         }
 
         int maxLength = kind == EntityKind.Subscription ? MaxSubscriptionNameLength : MaxQueueOrTopicNameLength;
@@ -131,6 +137,13 @@ internal sealed partial class EntityNameResolver
 
         return Convert.ToHexString(hash)[..HashedInstanceSuffixLength].ToLowerInvariant();
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Warning,
+        Message =
+            "{EntityKind} name '{EntityName}' has unsupported characters and was changed to '{SanitizedEntityName}'"
+    )]
+    private partial void LogEntityNameSanitized(EntityKind entityKind, string entityName, string sanitizedEntityName);
 
     [LoggerMessage(
         Level = LogLevel.Warning,

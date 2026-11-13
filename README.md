@@ -569,7 +569,9 @@ The entity name in the namespace is built from the configured name
    from the configured name and from the instance suffix, and leading and
    trailing hyphens are trimmed, and the rest is lowercased. A configured
    name or instance suffix with no letters or digits left fails with
-   `InvalidOperationException`.
+   `InvalidOperationException`. When this step removes characters from the
+   configured name, the library logs a warning with the configured and the
+   changed name. Lowercasing alone logs nothing.
 2. When `UseInstanceSuffix` is set, `-` and the instance suffix are added.
 3. The name is cut to 260 characters for queues and topics and 50 for
    subscriptions. Only the configured part is cut, so the instance suffix
