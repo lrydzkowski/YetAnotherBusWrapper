@@ -16,6 +16,11 @@
   QueueNamesAfterStop: [],
   Logs: [
     {
+      Level: Warning,
+      Logger: EntityNameResolver,
+      Message: Queue name 'entity-names-t007-orders--' has unsupported characters and was changed to 'entity-names-t007-orders'
+    },
+    {
       Level: Information,
       Logger: QueueProvisioner,
       Message: Created queue 'orders' (entity name 'entity-names-t007-orders-instance-01')
