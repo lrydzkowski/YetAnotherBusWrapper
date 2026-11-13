@@ -119,11 +119,11 @@ than `failuresToSimulate`, and the library logs each failure.
 `POST /shipments/{id}/statuses` sends a list of statuses to the
 `shipments` queue.
 
-- The queue is created with `RequiresSession`, and `configureMessage` sets
-  the session ID to the shipment ID.
+- `configureMessage` sets the session ID to the shipment ID.
 - The consumer sets `SessionsEnabled`, `MaxConcurrentSessions`, and
   `SessionIdleTimeout`, so the statuses of one shipment are handled in
-  order.
+  order. Because `SessionsEnabled` is set, the library creates the queue
+  with `RequiresSession`.
 - The queue's health check uses `Peek`.
 
 ### Collections and scheduled enqueue

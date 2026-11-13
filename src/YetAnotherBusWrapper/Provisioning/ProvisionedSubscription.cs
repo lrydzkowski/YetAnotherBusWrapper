@@ -70,7 +70,8 @@ internal sealed class ProvisionedSubscription : IProvisionedEntity
     {
         CreateSubscriptionOptions createOptions = new(ResolveTopicName(), ResolveSubscriptionName())
         {
-            MaxDeliveryCount = _options.MaxDeliveryCount
+            MaxDeliveryCount = _options.MaxDeliveryCount,
+            RequiresSession = _options.SessionsEnabled
         };
         _registration.ConfigureCreateOptions?.Invoke(createOptions);
 

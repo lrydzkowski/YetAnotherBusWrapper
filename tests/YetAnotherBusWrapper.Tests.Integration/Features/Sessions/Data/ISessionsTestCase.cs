@@ -8,6 +8,7 @@ public interface ISessionsTestCase
 {
     int TestCaseId { get; }
     ConsumerEntityKind EntityKind { get; }
+    bool CreateOnStartup { get; }
     int MaxConcurrentSessions { get; }
     TimeSpan? SessionIdleTimeout { get; }
     HoldPlan HoldPlan { get; }

@@ -50,7 +50,7 @@ public class SessionsTests
     private async Task<SessionsTestResult> RunAsync(ISessionsTestCase testCase, CancellationToken cancellationToken)
     {
         await using TestCaseScope scope = new(_emulator, Feature, testCase.TestCaseId);
-        string entityName = await CreateSessionEntityAsync(testCase, scope, cancellationToken);
+        string entityName = await PrepareSessionEntityAsync(testCase, scope, cancellationToken);
         DeliveryRecorder<OrderPlaced> recorder = new();
         ConcurrencyTracker tracker = new();
         List<SendResult> sendResults = [];
@@ -80,6 +80,25 @@ public class SessionsTests
             scope.Logs.GetLogs(),
             thrownException
         );
+    }
+
+    private static async Task<string> PrepareSessionEntityAsync(
+        ISessionsTestCase testCase,
+        TestCaseScope scope,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!testCase.CreateOnStartup)
+        {
+            return await CreateSessionEntityAsync(testCase, scope, cancellationToken);
+        }
+
+        if (testCase.EntityKind == ConsumerEntityKind.Queue)
+        {
+            return scope.GetQueueName(LogicalEntityName);
+        }
+
+        return await scope.CreateTopicAsync(LogicalEntityName, cancellationToken);
     }
 
     private static async Task<string> CreateSessionEntityAsync(
@@ -142,7 +161,10 @@ public class SessionsTests
                     options =>
                     {
                         options.ConnectionString = scope.ConnectionString;
+                        options.AdministrationConnectionString = scope.AdministrationConnectionString;
                         options.QueueName = entityName;
+                        options.CreateOnStartup = testCase.CreateOnStartup;
+                        options.FailStartupOnProvisioningError = true;
                     }
                 );
             builder.AddQueueConsumer<HoldingConsumer, OrderPlaced>()
@@ -163,6 +185,7 @@ public class SessionsTests
                 options =>
                 {
                     options.ConnectionString = scope.ConnectionString;
+                    options.AdministrationConnectionString = scope.AdministrationConnectionString;
                     options.TopicName = entityName;
                 }
             );
@@ -171,6 +194,8 @@ public class SessionsTests
                 options =>
                 {
                     options.SubscriptionName = SubscriptionName;
+                    options.CreateOnStartup = testCase.CreateOnStartup;
+                    options.FailStartupOnProvisioningError = true;
                     options.SessionsEnabled = true;
                     options.MaxConcurrentSessions = testCase.MaxConcurrentSessions;
                     options.SessionIdleTimeout = testCase.SessionIdleTimeout;

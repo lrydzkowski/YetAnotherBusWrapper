@@ -10,6 +10,8 @@ internal class T03TwoSessionsOnSubscription : ISessionsTestCase
 
     public ConsumerEntityKind EntityKind => ConsumerEntityKind.Subscription;
 
+    public bool CreateOnStartup => false;
+
     public int MaxConcurrentSessions => 2;
 
     public TimeSpan? SessionIdleTimeout => TimeSpan.FromSeconds(2);

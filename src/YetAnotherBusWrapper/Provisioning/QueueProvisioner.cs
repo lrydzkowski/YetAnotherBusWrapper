@@ -62,6 +62,7 @@ internal sealed class QueueProvisioner
         return new ProvisionedQueue(
             registration,
             options,
+            _optionsStore.GetQueueConsumer(registration.LogicalEntityName),
             _clientProvider.GetAdministrationClient(options.ConnectionString!, options.AdministrationConnectionString),
             _entityNameResolver
         );

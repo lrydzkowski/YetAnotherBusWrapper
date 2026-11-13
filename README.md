@@ -449,12 +449,13 @@ options:
 Set `SessionsEnabled` to handle the messages of one session in order. The
 queue or subscription must require sessions, and every message needs a
 session ID. Set the session ID in `configureMessage`. When the library
-creates the entity, set `RequiresSession` in the create-options callback:
+creates the queue or subscription, it sets `RequiresSession` from
+`SessionsEnabled`, before it runs the create-options callback. An entity
+that already exists is left unchanged, so it must already require sessions.
 
 ```csharp
 bus.AddQueue<OrderPlaced>(
         "orders",
-        configureCreateOptions: options => options.RequiresSession = true,
         configureMessage: (serviceBusMessage, message) =>
             serviceBusMessage.SessionId = message.OrderId
     )
