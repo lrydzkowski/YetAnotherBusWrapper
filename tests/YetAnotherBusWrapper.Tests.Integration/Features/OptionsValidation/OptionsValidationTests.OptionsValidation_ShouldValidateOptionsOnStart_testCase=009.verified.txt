@@ -1,0 +1,12 @@
+﻿{
+  TestCaseId: 9,
+  Started: true,
+  Logs: [
+    {
+      Level: Information,
+      Logger: ConsumerProcessor,
+      Message: Consumer of queue 'orders' was not started because the entity is disabled
+    }
+  ],
+  ThrownException: null
+}

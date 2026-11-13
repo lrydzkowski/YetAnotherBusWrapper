@@ -24,14 +24,17 @@ internal sealed class SubscriptionOptionsValidator : IValidateOptions<Subscripti
             return ValidateOptionsResult.Skip;
         }
 
+        List<string> failures = [];
         if (string.IsNullOrWhiteSpace(options.SubscriptionName))
         {
-            return ValidateOptionsResult.Fail(
-                $"Subscription '{name}' requires {nameof(SubscriptionOptions.SubscriptionName)}."
-            );
+            failures.Add($"Subscription '{name}' requires {nameof(SubscriptionOptions.SubscriptionName)}.");
         }
 
-        return ValidateOptionsResult.Success;
+        string entity = $"Subscription '{name}'";
+        failures.AddRange(OptionValueRules.GetMaxDeliveryCountFailures(entity, options.MaxDeliveryCount));
+        failures.AddRange(OptionValueRules.GetConsumerProcessingFailures(entity, options));
+
+        return failures.Count == 0 ? ValidateOptionsResult.Success : ValidateOptionsResult.Fail(failures);
     }
 
     private bool IsTopicDisabled(string? name)

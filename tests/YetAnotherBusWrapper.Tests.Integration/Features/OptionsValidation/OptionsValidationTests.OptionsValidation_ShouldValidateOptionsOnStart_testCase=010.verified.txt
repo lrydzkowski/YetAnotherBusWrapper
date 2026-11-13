@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 10,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: One or more errors occurred. (Queue 'orders' has MaxDeliveryCount 0, which must be at least 1.) (Queue consumer 'orders' has MaxConcurrentCalls 0, which must be at least 1.),
+    TypeName: AggregateException
+  }
+}

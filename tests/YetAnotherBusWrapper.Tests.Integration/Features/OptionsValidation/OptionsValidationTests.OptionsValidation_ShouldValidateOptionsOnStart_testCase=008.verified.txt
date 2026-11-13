@@ -1,0 +1,9 @@
+﻿{
+  TestCaseId: 8,
+  Started: false,
+  Logs: [],
+  ThrownException: {
+    Message: Subscription 'orders/billing' has MaxDeliveryCount 0, which must be at least 1.; Subscription 'orders/billing' has MaxConcurrentCalls 0, which must be at least 1.; Subscription 'orders/billing' has PrefetchCount -1, which must not be negative.; Subscription 'orders/billing' has MaxAutoLockRenewalDuration -00:00:01, which must not be negative, except for Timeout.InfiniteTimeSpan.; Subscription 'orders/billing' has MaxConcurrentSessions 0, which must be at least 1.; Subscription 'orders/billing' has SessionIdleTimeout -00:00:01, which must be greater than zero.,
+    TypeName: OptionsValidationException
+  }
+}
