@@ -71,7 +71,8 @@ internal sealed class SubscriptionProvisioner
             options,
             _clientProvider.GetAdministrationClient(
                 topicOptions.ConnectionString!,
-                topicOptions.AdministrationConnectionString
+                topicOptions.AdministrationConnectionString,
+                topicOptions.ClientRetry
             ),
             _entityNameResolver
         );

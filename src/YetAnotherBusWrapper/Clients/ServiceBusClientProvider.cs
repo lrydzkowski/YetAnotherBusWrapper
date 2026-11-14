@@ -48,25 +48,17 @@ internal sealed class ServiceBusClientProvider : IDisposable, IAsyncDisposable
             .Value;
     }
 
-    public ServiceBusAdministrationClient GetAdministrationClient(string connectionString)
-    {
-        return _administrationClients.GetOrAdd(
-                connectionString,
-                key => new Lazy<ServiceBusAdministrationClient>(() => new ServiceBusAdministrationClient(key))
-            )
-            .Value;
-    }
-
     public ServiceBusAdministrationClient GetAdministrationClient(
         string connectionString,
-        string? administrationConnectionString
+        string? administrationConnectionString,
+        ClientRetryOptions retryOptions
     )
     {
-        return GetAdministrationClient(
-            string.IsNullOrWhiteSpace(administrationConnectionString)
-                ? connectionString
-                : administrationConnectionString
-        );
+        return _administrationClients.GetOrAdd(
+                AdministrationConnectionStringResolver.Resolve(connectionString, administrationConnectionString),
+                key => new Lazy<ServiceBusAdministrationClient>(() => CreateAdministrationClient(key, retryOptions))
+            )
+            .Value;
     }
 
     private ServiceBusClient CreateClient(string connectionString, ClientRetryOptions retryOptions)
@@ -83,5 +75,24 @@ internal sealed class ServiceBusClientProvider : IDisposable, IAsyncDisposable
         };
 
         return new ServiceBusClient(connectionString, options);
+    }
+
+    private ServiceBusAdministrationClient CreateAdministrationClient(
+        string connectionString,
+        ClientRetryOptions retryOptions
+    )
+    {
+        _retryOptionsValidator.EnsureConsistentRetryOptions();
+        ServiceBusAdministrationClientOptions options = new()
+        {
+            Retry =
+            {
+                MaxRetries = retryOptions.MaxRetries,
+                NetworkTimeout = retryOptions.TryTimeout,
+                MaxDelay = retryOptions.MaxDelay
+            }
+        };
+
+        return new ServiceBusAdministrationClient(connectionString, options);
     }
 }

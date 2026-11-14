@@ -102,7 +102,8 @@ internal sealed class EntityHealthChecker
 
         ServiceBusAdministrationClient administrationClient = _clientProvider.GetAdministrationClient(
             options.ConnectionString!,
-            options.AdministrationConnectionString
+            options.AdministrationConnectionString,
+            options.ClientRetry
         );
 
         return EntityState.Found(queueName, await administrationClient.QueueExistsAsync(queueName, cancellationToken));
@@ -119,7 +120,8 @@ internal sealed class EntityHealthChecker
         string topicName = _entityNameResolver.ResolveTopicName(options);
         ServiceBusAdministrationClient administrationClient = _clientProvider.GetAdministrationClient(
             options.ConnectionString!,
-            options.AdministrationConnectionString
+            options.AdministrationConnectionString,
+            options.ClientRetry
         );
 
         return EntityState.Found(topicName, await administrationClient.TopicExistsAsync(topicName, cancellationToken));
@@ -153,7 +155,8 @@ internal sealed class EntityHealthChecker
 
         ServiceBusAdministrationClient administrationClient = _clientProvider.GetAdministrationClient(
             topicOptions.ConnectionString!,
-            topicOptions.AdministrationConnectionString
+            topicOptions.AdministrationConnectionString,
+            topicOptions.ClientRetry
         );
         bool exists = await administrationClient.SubscriptionExistsAsync(
             topicName,

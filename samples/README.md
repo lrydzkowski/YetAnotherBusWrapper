@@ -209,5 +209,6 @@ contain them. To see one, add it to `ServiceBusServiceCollectionExtensions.cs`:
   `AddTopicConsumer` for one registered with `AddQueue`.
 - The same subscription name passed to `AddTopicConsumer` twice for one
   topic.
-- Two enabled queues or topics that use the same connection string with
-  different `ClientRetry` options.
+- Two enabled queues or topics that use the same connection string or the
+  same administration connection string with different `ClientRetry`
+  options.

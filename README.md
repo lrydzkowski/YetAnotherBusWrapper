@@ -647,9 +647,15 @@ if (result.Status != SendStatus.Sent)
 
 All registrations that use the same connection string share one
 `ServiceBusClient`, so an application opens one connection per namespace.
-The same applies to the administration client. The client uses the
-`ClientRetry` options of the registrations. If two enabled queues or topics
-use the same connection string with different `ClientRetry` options,
+The same applies to the administration client, which is shared per
+`AdministrationConnectionString`, or per `ConnectionString` when
+`AdministrationConnectionString` is not set.
+
+Both clients use the `ClientRetry` options of the registrations. The
+administration client applies `MaxRetries`, `MaxDelay`, and `TryTimeout` to
+each HTTP request it sends for provisioning and existence health checks. If
+two enabled queues or topics use the same connection string or the same
+administration connection string with different `ClientRetry` options,
 startup fails with a message that names both logical entity names. With
 hosted services turned off, the same error is thrown when the first client
 is created.
