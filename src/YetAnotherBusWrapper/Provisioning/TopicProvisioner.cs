@@ -62,7 +62,11 @@ internal sealed class TopicProvisioner
         return new ProvisionedTopic(
             registration,
             options,
-            _clientProvider.GetAdministrationClient(options.ConnectionString!, options.AdministrationConnectionString),
+            _clientProvider.GetAdministrationClient(
+                options.ConnectionString!,
+                options.AdministrationConnectionString,
+                options.ClientRetry
+            ),
             _entityNameResolver
         );
     }

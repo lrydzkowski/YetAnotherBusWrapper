@@ -6,7 +6,7 @@ namespace YetAnotherBusWrapper.Tests.Integration.Common.Emulator;
 
 public sealed class ServiceBusEmulatorFixture : IAsyncLifetime
 {
-    private const string EmulatorImage = "mcr.microsoft.com/azure-messaging/servicebus-emulator:latest";
+    private const string EmulatorImage = "mcr.microsoft.com/azure-messaging/servicebus-emulator:2.0.1";
 
     private readonly ServiceBusContainer _container = new ServiceBusBuilder(EmulatorImage)
         .WithAcceptLicenseAgreement(true)

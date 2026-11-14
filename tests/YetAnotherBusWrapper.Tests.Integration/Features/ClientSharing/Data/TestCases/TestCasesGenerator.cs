@@ -8,5 +8,6 @@ internal static class TestCasesGenerator
         yield return new T02SameCustomRetryOptions();
         yield return new T03DifferentRetryOptions();
         yield return new T04DifferentRetryOptionsWithHostedServicesDisabled();
+        yield return new T05DifferentRetryOptionsWithSharedAdministrationConnectionString();
     }
 }

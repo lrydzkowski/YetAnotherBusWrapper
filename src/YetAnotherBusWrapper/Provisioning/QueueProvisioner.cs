@@ -63,7 +63,11 @@ internal sealed class QueueProvisioner
             registration,
             options,
             _optionsStore.GetQueueConsumer(registration.LogicalEntityName),
-            _clientProvider.GetAdministrationClient(options.ConnectionString!, options.AdministrationConnectionString),
+            _clientProvider.GetAdministrationClient(
+                options.ConnectionString!,
+                options.AdministrationConnectionString,
+                options.ClientRetry
+            ),
             _entityNameResolver
         );
     }
