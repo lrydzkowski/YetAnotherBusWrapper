@@ -27,6 +27,7 @@ options in whatever way it wants.
 - [Per-instance broadcast subscriptions](#per-instance-broadcast-subscriptions)
 - [Keeping core code independent of Service Bus](#keeping-core-code-independent-of-service-bus)
 - [Sample application](#sample-application)
+- [Releasing](#releasing)
 
 ## Packages
 
@@ -39,8 +40,13 @@ All packages target `net10.0`.
 - `YetAnotherBusWrapper`: registration, clients, senders, provisioning, hosted
   consumers, serialization, entity names, and health checks.
 
-The packages are not published to a feed. Build them with `dotnet pack` and
-add the output folder as a local package source.
+The packages are published on [nuget.org](https://www.nuget.org/). Add them
+with the .NET CLI:
+
+```text
+dotnet add package YetAnotherBusWrapper
+dotnet add package YetAnotherBusWrapper.Abstractions
+```
 
 ## Quick start
 
@@ -845,3 +851,11 @@ Senders are singletons, so the port implementation can be a singleton too.
 `samples/` contains an ASP.NET Core application that uses every feature
 described here against a real Service Bus namespace, with one HTTP
 endpoint per scenario. See [samples/README.md](samples/README.md).
+
+## Releasing
+
+GitHub Actions builds and tests every push to `master` and every pull
+request. To publish both packages to nuget.org, publish a GitHub Release
+whose tag is the package version, such as `v1.2.3` or `v1.2.3-beta.1`. The
+leading `v` is optional. The `Publish` workflow builds, tests, and packs
+with that version, and then pushes the packages.

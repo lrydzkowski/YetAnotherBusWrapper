@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <Description>Connects ASP.NET Core applications to Azure Service Bus with typed senders and consumers, entity provisioning, hosted consumers, and health checks.</Description>
   </PropertyGroup>
 
   <ItemGroup>
