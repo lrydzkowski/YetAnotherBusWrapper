@@ -1,0 +1,73 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: Package version. Defaults to 0.0.0-ci.<run number>.
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build, test, and pack
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VERSION: ${{ inputs.version || format('0.0.0-ci.{0}', github.run_number) }}
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore YetAnotherBusWrapper.slnx
+
+      - name: Build
+        run: >-
+          dotnet build YetAnotherBusWrapper.slnx
+          --configuration Release
+          --no-restore
+          "-p:Version=$VERSION"
+
+      - name: Test
+        run: >-
+          dotnet test
+          --solution YetAnotherBusWrapper.slnx
+          --configuration Release
+          --no-build
+
+      - name: Pack
+        run: |
+          for project in YetAnotherBusWrapper.Abstractions YetAnotherBusWrapper; do
+            dotnet pack "src/$project/$project.csproj" \
+              --configuration Release \
+              --no-build \
+              --output artifacts/packages \
+              "-p:Version=$VERSION"
+          done
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: packages
+          path: artifacts/packages
+          if-no-files-found: error
+
+      - name: Upload Verify received files
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-output
+          path: "**/*.received.*"
+          if-no-files-found: ignore
